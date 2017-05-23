@@ -1,6 +1,6 @@
 // @flow
 
-export type SchemaMetaType = {
+declare type SchemaMetaType = {
   form: {
     editable: boolean,
     ordinal: number,
@@ -8,7 +8,7 @@ export type SchemaMetaType = {
     widget: string
   }
 };
-export type SchemaType = {
+declare type SchemaType = {
   id?: string,
   $schema?: string,
   title?: string,

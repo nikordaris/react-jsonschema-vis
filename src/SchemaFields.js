@@ -4,8 +4,6 @@ import { Field } from 'redux-form';
 import { has, get, map, isString, isEmpty } from 'lodash';
 import evaluateStyle from 'evaluate-style';
 
-import type { SchemaType } from './types';
-
 const ORDINAL_PROP = 'meta.form.ordinal';
 const LABEL_PROP = 'meta.form.label';
 const EDITABLE_PROP = 'meta.form.editable';

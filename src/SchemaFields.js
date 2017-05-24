@@ -4,11 +4,10 @@ import { Field } from 'redux-form';
 import { has, get, map, isString, isEmpty } from 'lodash';
 import evaluateStyle from 'evaluate-style';
 
-const ORDINAL_PROP = 'meta.form.ordinal';
-const LABEL_PROP = 'meta.form.label';
-const EDITABLE_PROP = 'meta.form.editable';
-const TYPE_PROP = 'meta.form.type';
-const WIDGET_PROP = 'meta.form.widget';
+const ORDINAL_PROP = 'meta.ordinal';
+const LABEL_PROP = 'id';
+const EDITABLE_PROP = 'meta.editable';
+const WIDGET_PROP = 'meta.widget';
 
 function _compare(obj = {}) {
   return (a, b) => {
@@ -49,6 +48,7 @@ export default class SchemaForm extends Component {
     schema: SchemaType,
     styles: SchemaFormStylesType,
     widgets: { [string]: React.Element<*> | string },
+    widgetProps: { [string]: { styles: { [string]: any } } },
     formFieldsTag: string
   };
 
@@ -87,7 +87,7 @@ export default class SchemaForm extends Component {
     required: boolean,
     namespace?: string
   ) {
-    const { styles, widgets } = this.props;
+    const { styles, widgets, widgetProps } = this.props;
     const { formField: formFieldStyles } = evaluateStyle(styles, fieldSchema);
     const fieldName = namespace ? `${namespace}.${name}` : name;
     const label = get(fieldSchema, LABEL_PROP, name);
@@ -100,6 +100,11 @@ export default class SchemaForm extends Component {
 
     if (has(widgets, widget)) {
       const Widget = get(widgets, widget);
+      const widgetProp = evaluateStyle(
+        get(widgetProps, widget, {}),
+        fieldSchema
+      );
+
       if (isString(Widget)) {
         return (
           <Widget
@@ -107,6 +112,7 @@ export default class SchemaForm extends Component {
             key={idx}
             name={name}
             schema={fieldSchema}
+            {...widgetProp}
           />
         );
       }
@@ -114,21 +120,13 @@ export default class SchemaForm extends Component {
       return React.cloneElement(Widget, {
         key: idx,
         styles: formFieldStyles,
-        schema: fieldSchema
+        schema: fieldSchema,
+        ...widgetProp
       });
     }
 
-    const type = get(fieldSchema, TYPE_PROP, 'text');
-
     return (
-      <Field
-        key={idx}
-        label={label}
-        name={fieldName}
-        component="input"
-        type={type}
-        required={required}
-      />
+      <Field key={idx} label={label} name={fieldName} required={required} />
     );
   }
 

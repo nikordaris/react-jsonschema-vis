@@ -1,5 +1,4 @@
 // @flow
-
 declare type SchemaMetaType = {
   form: {
     editable: boolean,
@@ -50,3 +49,10 @@ declare type SchemaType = {
   not?: SchemaType,
   meta: SchemaMetaType
 };
+
+declare module 'jsonschema-redux-form' {
+  declare module.exports: {
+    SchemaMetaType: SchemaMetaType,
+    SchemaType: SchemaType
+  };
+}

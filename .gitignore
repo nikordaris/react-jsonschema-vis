@@ -39,6 +39,9 @@ jspm_packages/
 # Typescript v1 declaration files
 typings/
 
+# Flow
+flow-typed/npm
+
 # Optional npm cache directory
 .npm
 

@@ -1,17 +1,11 @@
 // @flow
-declare type SchemaMetaType = {
-  form: {
-    editable: boolean,
-    ordinal: number,
-    label: string,
-    widget: string
-  }
-};
+
 declare type SchemaType = {
   id?: string,
   $schema?: string,
   title?: string,
   description?: string,
+  "const"?: string,
   multipleOf?: number,
   maximum?: number,
   exclusiveMaximum?: boolean,
@@ -46,13 +40,27 @@ declare type SchemaType = {
   allOf?: SchemaType[],
   anyOf?: SchemaType[],
   oneOf?: SchemaType[],
-  not?: SchemaType,
-  meta: SchemaMetaType
+  not?: SchemaType
 };
 
 declare module 'jsonschema-redux-form' {
   declare module.exports: {
-    SchemaMetaType: SchemaMetaType,
-    SchemaType: SchemaType
+    SchemaType: SchemaType,
+    getLabel(schema: SchemaType, defaultValue?: string): string,
+    getOrdinal(
+      schema: SchemaType,
+      prefix?: string,
+      defaultValue?: string
+    ): number,
+    getEditable(
+      schema: SchemaType,
+      prefix?: string,
+      defaultValue?: string
+    ): boolean,
+    getWidget(
+      schema: SchemaType,
+      prefix?: string,
+      defaultValue?: string
+    ): string
   };
 }

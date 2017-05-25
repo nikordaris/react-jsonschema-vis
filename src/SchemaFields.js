@@ -4,27 +4,32 @@ import { Field } from 'redux-form';
 import { has, get, map, isString, isEmpty } from 'lodash';
 import evaluateStyle from 'evaluate-style';
 
-const ORDINAL_PROP = 'meta.ordinal';
-const LABEL_PROP = 'id';
-const EDITABLE_PROP = 'meta.editable';
-const WIDGET_PROP = 'meta.widget';
+import {
+  DEFAULT_PREFIX,
+  getLabel,
+  getEditable,
+  getOrdinal,
+  hasOrdinal,
+  getWidget,
+  hasWidget
+} from './selectors';
 
-function _compare(obj = {}) {
+function _compare(obj = {}, prefix = DEFAULT_PREFIX) {
   return (a, b) => {
-    if (has(obj[a], ORDINAL_PROP)) {
-      if (has(obj[b], ORDINAL_PROP)) {
-        const aOrdinal = get(obj[a], ORDINAL_PROP);
-        const bOrdinal = get(obj[b], ORDINAL_PROP);
+    if (hasOrdinal(obj[a], prefix)) {
+      if (hasOrdinal(obj[b], prefix)) {
+        const aOrdinal = getOrdinal(obj[a], prefix);
+        const bOrdinal = getOrdinal(obj[b], prefix);
         return aOrdinal - bOrdinal;
       }
       return 1;
     }
-    if (has(obj[b], ORDINAL_PROP)) {
+    if (hasOrdinal(obj[b], prefix)) {
       return -1;
     }
 
-    const vA = get(obj[a], LABEL_PROP) || a;
-    const vB = get(obj[b], LABEL_PROP) || b;
+    const vA = getLabel(obj[a], a);
+    const vB = getLabel(obj[b], b);
     return +(vA > vB) || +(vA === vB) - 1;
   };
 }
@@ -41,11 +46,13 @@ export type SchemaFormStylesType = {
 export default class SchemaForm extends Component {
   static defaultProps = {
     styles: {},
+    prefix: DEFAULT_PREFIX,
     formFieldsTag: 'div'
   };
 
   props: {
     schema: SchemaType,
+    prefix: string,
     styles: SchemaFormStylesType,
     widgets: { [string]: React.Element<*> | string },
     widgetProps: { [string]: { styles: { [string]: any } } },
@@ -53,26 +60,30 @@ export default class SchemaForm extends Component {
   };
 
   isSchemaEmpty(schema: SchemaType) {
+    const { prefix } = this.props;
     return (
       has(schema, 'properties') &&
-      isEmpty(map(schema.properties).filter(prop => get(prop, EDITABLE_PROP)))
+      isEmpty(
+        map(schema.properties).filter(prop => getEditable(prop, prefix, false))
+      )
     );
   }
 
   renderFields(schema: SchemaType, id: string, parentName?: string) {
-    const { styles, formFieldsTag: FormFieldsTag } = this.props;
+    const { styles, formFieldsTag: FormFieldsTag, prefix } = this.props;
     const { formFields: formFieldsStyle } = evaluateStyle(styles, schema);
+    const properties = schema.properties || {};
     return (
       <FormFieldsTag key={id} id={id} style={formFieldsStyle}>
-        {map(schema.properties)
-          .filter(prop => get(prop, EDITABLE_PROP))
-          .sort(_compare(schema.properties))
-          .map((prop, key, idx) =>
+        {Object.keys(properties)
+          .filter(prop => getEditable(properties[prop], prefix, false))
+          .sort(_compare(schema.properties, prefix))
+          .map((prop, idx) =>
             this.renderField(
-              prop,
+              properties[prop],
               idx,
-              key,
-              schema.required ? schema.required.includes(key) : false,
+              prop,
+              schema.required ? schema.required.includes(prop) : false,
               parentName
             )
           )}
@@ -87,18 +98,18 @@ export default class SchemaForm extends Component {
     required: boolean,
     namespace?: string
   ) {
-    const { styles, widgets, widgetProps } = this.props;
+    const { styles, widgets, widgetProps, prefix } = this.props;
     const { formField: formFieldStyles } = evaluateStyle(styles, fieldSchema);
     const fieldName = namespace ? `${namespace}.${name}` : name;
-    const label = get(fieldSchema, LABEL_PROP, name);
+    const label = getLabel(fieldSchema, prefix, name);
 
     if (fieldSchema.type && fieldSchema.type === 'object') {
       return this.renderFields(fieldSchema, label, fieldName);
     }
 
-    const widget = get(fieldSchema, WIDGET_PROP);
+    const widget = getWidget(fieldSchema, prefix);
 
-    if (has(widgets, widget)) {
+    if (hasWidget(fieldSchema, prefix) && has(widgets, widget)) {
       const Widget = get(widgets, widget);
       const widgetProp = evaluateStyle(
         get(widgetProps, widget, {}),

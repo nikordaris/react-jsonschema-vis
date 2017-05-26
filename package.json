@@ -17,7 +17,7 @@
     "prepublish": "npm run build",
     "build": "npm run clean; babel src --out-dir lib --ignore *.test.js",
     "clean": "rimraf lib",
-    "test": "concurrently \"eslint src/**/*.js\" \"jest\" \"cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\"",
+    "test": "concurrently \"eslint src/**/*.js\" \"jest\"",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "deploy-storybook": "storybook-to-ghpages",
@@ -30,7 +30,6 @@
       "!**/node_modules/**",
       "!**/vendor/**"
     ],
-    "coverageDirectory": "../coverage/",
     "collectCoverage": true
   },
   "devDependencies": {

@@ -17,14 +17,21 @@
     "prepublish": "npm run build",
     "build": "npm run clean; babel src --out-dir lib --ignore *.test.js",
     "clean": "rimraf lib",
-    "test": "concurrently \"eslint src/**/*.js\" \"jest\" ",
+    "test": "concurrently \"eslint src/**/*.js\" \"jest\" \"cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\"",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "deploy-storybook": "storybook-to-ghpages",
     "postinstall": "flow-typed install"
   },
   "jest": {
-    "rootDir": "src"
+    "rootDir": "src",
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/vendor/**"
+    ],
+    "coverageDirectory": "../coverage/",
+    "collectCoverage": true
   },
   "devDependencies": {
     "@kadira/storybook": "^2.21.0",
@@ -38,6 +45,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "concurrently": "^3.4.0",
+    "coveralls": "^2.13.1",
     "eslint": "^3.19.0",
     "eslint-config-react-app": "^0.6.2",
     "eslint-plugin-flowtype": "^2.33.0",

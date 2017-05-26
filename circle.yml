@@ -1,5 +1,0 @@
-machine:
-  artifacts:
-    - "coverage"
-  node:
-    version: 7.10.0

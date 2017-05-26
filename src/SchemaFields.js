@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { Field } from 'redux-form';
-import { has, get, map, isString, isEmpty } from 'lodash';
+import { has, get, isString } from 'lodash';
 import evaluateStyle from 'evaluate-style';
 
 import {
@@ -50,16 +50,6 @@ export default class SchemaFields extends Component {
     widgetProps: { [string]: { styles: { [string]: any } } },
     formFieldsTag: string
   };
-
-  isSchemaEmpty(schema: SchemaType) {
-    const { prefix } = this.props;
-    return (
-      has(schema, 'properties') &&
-      isEmpty(
-        map(schema.properties).filter(prop => isEditable(prop, prefix, false))
-      )
-    );
-  }
 
   renderFields(schema: SchemaType, id: string, parentName?: string) {
     const { styles, formFieldsTag: FormFieldsTag, prefix } = this.props;

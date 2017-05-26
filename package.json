@@ -25,12 +25,16 @@
   },
   "jest": {
     "rootDir": "src",
+    "testResultsProcessor": "jest-junit",
     "collectCoverageFrom": [
       "**/*.{js,jsx}",
       "!**/node_modules/**",
       "!**/vendor/**"
     ],
     "collectCoverage": true
+  },
+  "jest-junit": {
+    "output": "./coverage/junit.xml"
   },
   "devDependencies": {
     "@kadira/storybook": "^2.21.0",
@@ -56,6 +60,7 @@
     "flow-typed": "^2.1.2",
     "jest": "^20.0.1",
     "jest-cli": "^20.0.1",
+    "jest-junit": "^1.5.1",
     "prettydiff": "^99.0.1",
     "rimraf": "^2.6.1"
   },

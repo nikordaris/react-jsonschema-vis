@@ -1,5 +1,5 @@
 machine:
   environment:
-    CIRCLE_ARTIFACTS: coverage
+    CIRCLE_TEST_REPORTS: coverage
   node:
     version: 7.10.0

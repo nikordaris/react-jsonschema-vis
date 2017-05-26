@@ -43,10 +43,19 @@ declare type SchemaType = {
   not?: SchemaType
 };
 
+declare type SchemaFormStylesType = {
+  formFields: (
+    schema: SchemaType
+  ) => { [string]: string | number } | { [string]: string | number },
+  formField: (
+    schema: SchemaType
+  ) => { [string]: string | number } | { [string]: string | number }
+};
+
 declare module 'jsonschema-redux-form' {
   declare module.exports: {
     SchemaType: SchemaType,
-    getLabel(schema: SchemaType, defaultValue?: string): string,
+    SchemaFormStylesType: SchemaFormStylesType,
     getOrdinal(
       schema: SchemaType,
       prefix?: string,

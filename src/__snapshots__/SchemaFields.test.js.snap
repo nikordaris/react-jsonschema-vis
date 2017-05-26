@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render Schema should render 1`] = `
+<div
+  style={undefined}
+>
+  <div
+    id="schemaForm"
+    style={undefined}
+  >
+    <input
+      schema={
+        Object {
+          "meta": Object {
+            "form": Object {
+              "editable": true,
+              "ordinal": 0,
+              "widget": "NumberInputField",
+            },
+          },
+          "title": "Foo",
+          "type": "number",
+        }
+      }
+      styles={undefined}
+      type="number"
+    />
+    <input
+      name="bar"
+      schema={
+        Object {
+          "meta": Object {
+            "form": Object {
+              "editable": true,
+              "ordinal": 1,
+              "widget": "InputField",
+            },
+          },
+          "title": "Bar",
+          "type": "string",
+        }
+      }
+      styles={undefined}
+    />
+  </div>
+</div>
+`;

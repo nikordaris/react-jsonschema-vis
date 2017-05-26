@@ -6,13 +6,14 @@ import evaluateStyle from 'evaluate-style';
 
 import {
   DEFAULT_PREFIX,
-  getLabel,
-  getEditable,
+  isEditable,
   getOrdinal,
   hasOrdinal,
   getWidget,
   hasWidget
 } from './selectors';
+
+const LABEL_PROP = 'title';
 
 function _compare(obj = {}, prefix = DEFAULT_PREFIX) {
   return (a, b) => {
@@ -28,22 +29,13 @@ function _compare(obj = {}, prefix = DEFAULT_PREFIX) {
       return -1;
     }
 
-    const vA = getLabel(obj[a], a);
-    const vB = getLabel(obj[b], b);
+    const vA = get(obj[a], LABEL_PROP, a);
+    const vB = get(obj[b], LABEL_PROP, b);
     return +(vA > vB) || +(vA === vB) - 1;
   };
 }
 
-export type SchemaFormStylesType = {
-  formFields: (
-    schema: SchemaType
-  ) => { [string]: string | number } | { [string]: string | number },
-  formField: (
-    schema: SchemaType
-  ) => { [string]: string | number } | { [string]: string | number }
-};
-
-export default class SchemaForm extends Component {
+export default class SchemaFields extends Component {
   static defaultProps = {
     styles: {},
     prefix: DEFAULT_PREFIX,
@@ -64,7 +56,7 @@ export default class SchemaForm extends Component {
     return (
       has(schema, 'properties') &&
       isEmpty(
-        map(schema.properties).filter(prop => getEditable(prop, prefix, false))
+        map(schema.properties).filter(prop => isEditable(prop, prefix, false))
       )
     );
   }
@@ -76,7 +68,7 @@ export default class SchemaForm extends Component {
     return (
       <FormFieldsTag key={id} id={id} style={formFieldsStyle}>
         {Object.keys(properties)
-          .filter(prop => getEditable(properties[prop], prefix, false))
+          .filter(prop => isEditable(properties[prop], prefix, false))
           .sort(_compare(schema.properties, prefix))
           .map((prop, idx) =>
             this.renderField(
@@ -101,7 +93,7 @@ export default class SchemaForm extends Component {
     const { styles, widgets, widgetProps, prefix } = this.props;
     const { formField: formFieldStyles } = evaluateStyle(styles, fieldSchema);
     const fieldName = namespace ? `${namespace}.${name}` : name;
-    const label = getLabel(fieldSchema, prefix, name);
+    const label = get(fieldSchema, LABEL_PROP, name);
 
     if (fieldSchema.type && fieldSchema.type === 'object') {
       return this.renderFields(fieldSchema, label, fieldName);

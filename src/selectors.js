@@ -2,34 +2,25 @@ import { get, has } from 'lodash';
 
 export const DEFAULT_PREFIX = 'meta.form';
 
-export function getLabel(schema, defaultValue) {
-  return get(schema, 'title', defaultValue);
+const _getPrefix = (schema, prefix = DEFAULT_PREFIX) =>
+  get(schema, prefix, schema);
+
+export function getOrdinal(schema, prefix, defaultValue) {
+  return get(_getPrefix(schema, prefix), 'ordinal', defaultValue);
 }
 
-export function hasLabel(schema) {
-  return has(schema, 'title');
+export function hasOrdinal(schema, prefix) {
+  return has(_getPrefix(schema, prefix), 'ordinal');
 }
 
-export function getOrdinal(schema, prefix = DEFAULT_PREFIX, defaultValue) {
-  return get(schema, `${prefix}.ordinal`, defaultValue);
+export function isEditable(schema, prefix, defaultValue) {
+  return get(_getPrefix(schema, prefix), 'editable', defaultValue);
 }
 
-export function hasOrdinal(schema, prefix = DEFAULT_PREFIX) {
-  return has(schema, `${prefix}.ordinal`);
+export function getWidget(schema, prefix, defaultValue) {
+  return get(_getPrefix(schema, prefix), 'widget', defaultValue);
 }
 
-export function getEditable(schema, prefix = DEFAULT_PREFIX, defaultValue) {
-  return get(schema, `${prefix}.editable`, defaultValue);
-}
-
-export function hasEditable(schema, prefix = DEFAULT_PREFIX) {
-  return has(schema, `${prefix}.editable`);
-}
-
-export function getWidget(schema, prefix = DEFAULT_PREFIX, defaultValue) {
-  return get(schema, `${prefix}.widget`, defaultValue);
-}
-
-export function hasWidget(schema, prefix = DEFAULT_PREFIX) {
-  return has(schema, `${prefix}.widget`);
+export function hasWidget(schema, prefix) {
+  return has(_getPrefix(schema, prefix), 'widget');
 }

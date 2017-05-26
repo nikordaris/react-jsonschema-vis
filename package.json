@@ -15,17 +15,16 @@
   "license": "MIT",
   "scripts": {
     "prepublish": "npm run build",
-    "build": "npm run clean; babel src --out-dir lib --ignore __tests__",
+    "build": "npm run clean; babel src --out-dir lib --ignore *.test.js",
     "clean": "rimraf lib",
-    "test": "concurrently --kill-others \"eslint src/**/*.js\" \"jest src/**/*.test.js --notify\" ",
+    "test": "concurrently \"eslint src/**/*.js\" \"jest\" ",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "deploy-storybook": "storybook-to-ghpages",
     "postinstall": "flow-typed install"
   },
   "jest": {
-    "rootDir": "src",
-    "setupTestFrameworkScriptFile": "./node_modules/jest-enzyme/lib/index.js"
+    "rootDir": "src"
   },
   "devDependencies": {
     "@kadira/storybook": "^2.21.0",
@@ -39,7 +38,6 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "concurrently": "^3.4.0",
-    "enzyme": "^2.8.2",
     "eslint": "^3.19.0",
     "eslint-config-react-app": "^0.6.2",
     "eslint-plugin-flowtype": "^2.33.0",
@@ -51,7 +49,6 @@
     "flow-typed": "^2.1.2",
     "jest": "^20.0.1",
     "jest-cli": "^20.0.1",
-    "jest-enzyme": "^3.1.1",
     "prettydiff": "^99.0.1",
     "rimraf": "^2.6.1"
   },

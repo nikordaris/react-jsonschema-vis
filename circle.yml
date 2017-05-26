@@ -1,0 +1,5 @@
+machine:
+  environment:
+    CIRCLE_ARTIFACTS: coverage
+  node:
+    version: 7.10.0

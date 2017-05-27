@@ -14,7 +14,6 @@ exports[`Render Schema should render 1`] = `
           "meta": Object {
             "form": Object {
               "editable": true,
-              "ordinal": 0,
               "widget": "NumberInputField",
             },
           },
@@ -24,6 +23,23 @@ exports[`Render Schema should render 1`] = `
       }
       styles={undefined}
       type="number"
+    />
+    <input
+      name="foobar"
+      schema={
+        Object {
+          "description": "Foo is bar",
+          "meta": Object {
+            "form": Object {
+              "editable": true,
+              "widget": "InputField",
+            },
+          },
+          "title": "Foobar",
+          "type": "string",
+        }
+      }
+      styles={undefined}
     />
     <input
       name="bar"
@@ -36,12 +52,115 @@ exports[`Render Schema should render 1`] = `
               "widget": "InputField",
             },
           },
+          "required": true,
           "title": "Bar",
           "type": "string",
         }
       }
       styles={undefined}
     />
+    <div />
+    <div />
+  </div>
+</div>
+`;
+
+exports[`Render Schema should render single field schema 1`] = `
+<div
+  style={undefined}
+>
+  <input
+    schema={
+      Object {
+        "meta": Object {
+          "form": Object {
+            "editable": true,
+            "ordinal": 0,
+            "widget": "NumberInputField",
+          },
+        },
+        "title": "Foo",
+        "type": "number",
+      }
+    }
+    styles={undefined}
+    type="number"
+  />
+</div>
+`;
+
+exports[`Render Schema should render without properties 1`] = `
+<div
+  style={undefined}
+>
+  <div
+    id="schemaForm"
+    style={undefined}
+  />
+</div>
+`;
+
+exports[`Render Schema should render without required fields 1`] = `
+<div
+  style={undefined}
+>
+  <div
+    id="schemaForm"
+    style={undefined}
+  >
+    <input
+      schema={
+        Object {
+          "meta": Object {
+            "form": Object {
+              "editable": true,
+              "widget": "NumberInputField",
+            },
+          },
+          "title": "Foo",
+          "type": "number",
+        }
+      }
+      styles={undefined}
+      type="number"
+    />
+    <input
+      name="foobar"
+      schema={
+        Object {
+          "description": "Foo is bar",
+          "meta": Object {
+            "form": Object {
+              "editable": true,
+              "widget": "InputField",
+            },
+          },
+          "title": "Foobar",
+          "type": "string",
+        }
+      }
+      styles={undefined}
+    />
+    <input
+      name="bar"
+      schema={
+        Object {
+          "meta": Object {
+            "form": Object {
+              "editable": true,
+              "ordinal": 1,
+              "widget": "InputField",
+            },
+          },
+          "required": true,
+          "title": "Bar",
+          "type": "string",
+        }
+      }
+      styles={undefined}
+    />
+    <div />
+    <div />
   </div>
 </div>
 `;

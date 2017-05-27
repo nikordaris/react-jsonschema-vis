@@ -1,6 +1,5 @@
 // @flow
 import React, { Component } from 'react';
-import { Field } from 'redux-form';
 import { has, get, isString } from 'lodash';
 import evaluateStyle from 'evaluate-style';
 
@@ -15,7 +14,7 @@ import {
 
 const LABEL_PROP = 'title';
 
-function _compare(obj = {}, prefix = DEFAULT_PREFIX) {
+function _compare(obj: { [name: string]: any }, prefix: string) {
   return (a, b) => {
     if (hasOrdinal(obj[a], prefix)) {
       if (hasOrdinal(obj[b], prefix)) {
@@ -45,6 +44,7 @@ export default class SchemaFields extends Component {
   props: {
     schema: SchemaType,
     prefix: string,
+    namespace?: string,
     styles: SchemaFormStylesType,
     widgets: { [string]: React.Element<*> | string },
     widgetProps: { [string]: { styles: { [string]: any } } },
@@ -52,14 +52,18 @@ export default class SchemaFields extends Component {
   };
 
   renderFields(schema: SchemaType, id: string, parentName?: string) {
+    if (schema.type && schema.type !== 'object') {
+      return this.renderField(schema, id, id, undefined, parentName);
+    }
     const { styles, formFieldsTag: FormFieldsTag, prefix } = this.props;
     const { formFields: formFieldsStyle } = evaluateStyle(styles, schema);
     const properties = schema.properties || {};
+
     return (
       <FormFieldsTag key={id} id={id} style={formFieldsStyle}>
         {Object.keys(properties)
           .filter(prop => isEditable(properties[prop], prefix, false))
-          .sort(_compare(schema.properties, prefix))
+          .sort(_compare(properties, prefix))
           .map((prop, idx) =>
             this.renderField(
               properties[prop],
@@ -77,18 +81,12 @@ export default class SchemaFields extends Component {
     fieldSchema: SchemaType,
     idx: number | string,
     name: string,
-    required: boolean,
+    required: boolean = false,
     namespace?: string
   ) {
     const { styles, widgets, widgetProps, prefix } = this.props;
     const { formField: formFieldStyles } = evaluateStyle(styles, fieldSchema);
     const fieldName = namespace ? `${namespace}.${name}` : name;
-    const label = get(fieldSchema, LABEL_PROP, name);
-
-    if (fieldSchema.type && fieldSchema.type === 'object') {
-      return this.renderFields(fieldSchema, label, fieldName);
-    }
-
     const widget = getWidget(fieldSchema, prefix);
 
     if (hasWidget(fieldSchema, prefix) && has(widgets, widget)) {
@@ -103,7 +101,7 @@ export default class SchemaFields extends Component {
           <Widget
             styles={formFieldStyles}
             key={idx}
-            name={name}
+            name={fieldName}
             schema={fieldSchema}
             {...widgetProp}
           />
@@ -118,18 +116,21 @@ export default class SchemaFields extends Component {
       });
     }
 
-    return (
-      <Field key={idx} label={label} name={fieldName} required={required} />
-    );
+    return <div key={idx} />;
   }
 
   render() {
-    const { styles, schema, formFieldsTag: FormFieldsTag } = this.props;
+    const {
+      styles,
+      schema,
+      namespace,
+      formFieldsTag: FormFieldsTag
+    } = this.props;
     const { formFields: formFieldsStyle } = evaluateStyle(styles, schema);
 
     return (
       <FormFieldsTag style={formFieldsStyle}>
-        {this.renderFields(schema, 'schemaForm')}
+        {this.renderFields(schema, 'schemaForm', namespace)}
       </FormFieldsTag>
     );
   }

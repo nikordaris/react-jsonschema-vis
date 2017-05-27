@@ -10,7 +10,7 @@ const mockSchemaWithDefaultPrefix = {
   description: 'description',
   title: 'title',
   meta: {
-    form: {
+    widgets: {
       ordinal: 0,
       editable: true,
       widget: 'Widget'
@@ -21,7 +21,7 @@ const mockSchemaWithDefaultPrefixNoEdit = {
   description: 'description',
   title: 'title',
   meta: {
-    form: {
+    widgets: {
       ordinal: 0,
       editable: false,
       widget: 'Widget'

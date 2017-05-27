@@ -1,3 +1,3 @@
 export * from './selectors';
-export * from './SchemaFields';
-export default from './SchemaFields';
+export * from './SchemaWidgets';
+export default from './SchemaWidgets';

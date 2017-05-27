@@ -43,11 +43,11 @@ declare type SchemaType = {
   not?: SchemaType
 };
 
-declare type SchemaFormStylesType = {
-  formFields: (
+declare type SchemaWidgetsStylesType = {
+  widgets: (
     schema: SchemaType
   ) => { [string]: string | number } | { [string]: string | number },
-  formField: (
+  widget: (
     schema: SchemaType
   ) => { [string]: string | number } | { [string]: string | number }
 };
@@ -55,21 +55,21 @@ declare type SchemaFormStylesType = {
 declare module 'jsonschema-redux-form' {
   declare module.exports: {
     SchemaType: SchemaType,
-    SchemaFormStylesType: SchemaFormStylesType,
+    SchemaWidgetsStylesType: SchemaWidgetsStylesType,
     getOrdinal(
       schema: SchemaType,
       prefix?: string,
-      defaultValue?: string
+      defaultValue?: any
     ): number,
     getEditable(
       schema: SchemaType,
       prefix?: string,
-      defaultValue?: string
+      defaultValue?: any
     ): boolean,
     getWidget(
       schema: SchemaType,
       prefix?: string,
-      defaultValue?: string
+      defaultValue?: any
     ): string
   };
 }

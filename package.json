@@ -1,6 +1,6 @@
 {
   "name": "jsonschema-redux-form",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "",
   "main": "lib/index.js",
   "repository": {
@@ -16,12 +16,9 @@
   "scripts": {
     "prepublish": "npm run build",
     "build": "npm run clean; babel src --out-dir lib --ignore *.test.js",
-    "clean": "rimraf lib",
-    "test": "concurrently \"eslint src/**/*.js\" \"jest\"",
+    "clean": "rimraf lib coverage",
+    "test": "concurrently \"flow\" \"eslint src/**/*.js\" \"jest\"",
     "test:ci": "npm test && codecov",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
-    "deploy-storybook": "storybook-to-ghpages",
     "postinstall": "flow-typed install"
   },
   "jest": {
@@ -33,12 +30,7 @@
     ],
     "collectCoverage": true
   },
-  "jest-junit": {
-    "output": "./coverage/reports/junit.xml"
-  },
   "devDependencies": {
-    "@kadira/storybook": "^2.21.0",
-    "@kadira/storybook-deployer": "^1.2.0",
     "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
     "babel-eslint": "^7.2.3",
@@ -60,17 +52,14 @@
     "flow-typed": "^2.1.2",
     "jest": "^20.0.1",
     "jest-cli": "^20.0.1",
-    "jest-junit": "^1.5.1",
     "prettydiff": "^99.0.1",
+    "react": "^15.5.4",
     "react-test-renderer": "^15.5.4",
     "rimraf": "^2.6.1"
   },
   "dependencies": {
     "evaluate-style": "^1.0.0",
     "lodash": "^4.17.4",
-    "react": "^15.5.4",
-    "react-redux": "^5.0.5",
-    "redux-form": "^6.7.0",
     "styled-components": "^1.4.6"
   }
 }

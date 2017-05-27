@@ -34,75 +34,75 @@ function _compare(obj: { [name: string]: any }, prefix: string) {
   };
 }
 
-export default class SchemaFields extends Component {
+export default class SchemaWidgets extends Component {
   static defaultProps = {
     styles: {},
     prefix: DEFAULT_PREFIX,
-    formFieldsTag: 'div'
+    widgetsTag: 'div'
   };
 
   props: {
     schema: SchemaType,
     prefix: string,
     namespace?: string,
-    styles: SchemaFormStylesType,
+    styles: SchemaWidgetsStylesType,
     widgets: { [string]: React.Element<*> | string },
     widgetProps: { [string]: { styles: { [string]: any } } },
-    formFieldsTag: string
+    widgetsTag: string
   };
 
-  renderFields(schema: SchemaType, id: string, parentName?: string) {
+  renderWidgets(schema: SchemaType, id: string, parentName?: string) {
     if (schema.type && schema.type !== 'object') {
-      return this.renderField(schema, id, id, undefined, parentName);
+      return this.renderWidget(schema, id, id, undefined, parentName);
     }
-    const { styles, formFieldsTag: FormFieldsTag, prefix } = this.props;
-    const { formFields: formFieldsStyle } = evaluateStyle(styles, schema);
+    const { styles, widgetsTag: WidgetsTag, prefix } = this.props;
+    const { widgets: widgetsStyle } = evaluateStyle(styles, schema);
     const properties = schema.properties || {};
 
     return (
-      <FormFieldsTag key={id} id={id} style={formFieldsStyle}>
+      <WidgetsTag key={id} id={id} style={widgetsStyle}>
         {Object.keys(properties)
           .filter(prop => isEditable(properties[prop], prefix, false))
           .sort(_compare(properties, prefix))
           .map((prop, idx) =>
-            this.renderField(
+            this.renderWidget(
               properties[prop],
               idx,
               prop,
-              schema.required ? schema.required.includes(prop) : false,
+              schema.required ? schema.required.includes(prop) : properties[prop].required,
               parentName
             )
           )}
-      </FormFieldsTag>
+      </WidgetsTag>
     );
   }
 
-  renderField(
-    fieldSchema: SchemaType,
+  renderWidget(
+    widgetSchema: SchemaType,
     idx: number | string,
     name: string,
     required: boolean = false,
     namespace?: string
   ) {
     const { styles, widgets, widgetProps, prefix } = this.props;
-    const { formField: formFieldStyles } = evaluateStyle(styles, fieldSchema);
-    const fieldName = namespace ? `${namespace}.${name}` : name;
-    const widget = getWidget(fieldSchema, prefix);
+    const { widget: widgetStyles } = evaluateStyle(styles, widgetSchema);
+    const widgetName = namespace ? `${namespace}.${name}` : name;
+    const widget = getWidget(widgetSchema, prefix);
 
-    if (hasWidget(fieldSchema, prefix) && has(widgets, widget)) {
+    if (hasWidget(widgetSchema, prefix) && has(widgets, widget)) {
       const Widget = get(widgets, widget);
       const widgetProp = evaluateStyle(
         get(widgetProps, widget, {}),
-        fieldSchema
+        widgetSchema
       );
 
       if (isString(Widget)) {
         return (
           <Widget
-            styles={formFieldStyles}
+            styles={widgetStyles}
             key={idx}
-            name={fieldName}
-            schema={fieldSchema}
+            name={widgetName}
+            schema={widgetSchema}
             {...widgetProp}
           />
         );
@@ -110,8 +110,8 @@ export default class SchemaFields extends Component {
 
       return React.cloneElement(Widget, {
         key: idx,
-        styles: formFieldStyles,
-        schema: fieldSchema,
+        styles: widgetStyles,
+        schema: widgetSchema,
         ...widgetProp
       });
     }
@@ -124,14 +124,14 @@ export default class SchemaFields extends Component {
       styles,
       schema,
       namespace,
-      formFieldsTag: FormFieldsTag
+      widgetsTag: WidgetsTag
     } = this.props;
-    const { formFields: formFieldsStyle } = evaluateStyle(styles, schema);
+    const { widgets: widgetsStyle } = evaluateStyle(styles, schema);
 
     return (
-      <FormFieldsTag style={formFieldsStyle}>
-        {this.renderFields(schema, 'schemaForm', namespace)}
-      </FormFieldsTag>
+      <WidgetsTag style={widgetsStyle}>
+        {this.renderWidgets(schema, 'schemaWidgets', namespace)}
+      </WidgetsTag>
     );
   }
 }

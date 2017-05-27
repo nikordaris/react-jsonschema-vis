@@ -5,14 +5,14 @@ exports[`Render Schema should render 1`] = `
   style={undefined}
 >
   <div
-    id="schemaForm"
+    id="schemaWidgets"
     style={undefined}
   >
     <input
       schema={
         Object {
           "meta": Object {
-            "form": Object {
+            "widgets": Object {
               "editable": true,
               "widget": "NumberInputField",
             },
@@ -30,7 +30,7 @@ exports[`Render Schema should render 1`] = `
         Object {
           "description": "Foo is bar",
           "meta": Object {
-            "form": Object {
+            "widgets": Object {
               "editable": true,
               "widget": "InputField",
             },
@@ -46,7 +46,7 @@ exports[`Render Schema should render 1`] = `
       schema={
         Object {
           "meta": Object {
-            "form": Object {
+            "widgets": Object {
               "editable": true,
               "ordinal": 1,
               "widget": "InputField",
@@ -73,7 +73,7 @@ exports[`Render Schema should render single field schema 1`] = `
     schema={
       Object {
         "meta": Object {
-          "form": Object {
+          "widgets": Object {
             "editable": true,
             "ordinal": 0,
             "widget": "NumberInputField",
@@ -94,7 +94,7 @@ exports[`Render Schema should render without properties 1`] = `
   style={undefined}
 >
   <div
-    id="schemaForm"
+    id="schemaWidgets"
     style={undefined}
   />
 </div>
@@ -105,14 +105,14 @@ exports[`Render Schema should render without required fields 1`] = `
   style={undefined}
 >
   <div
-    id="schemaForm"
+    id="schemaWidgets"
     style={undefined}
   >
     <input
       schema={
         Object {
           "meta": Object {
-            "form": Object {
+            "widgets": Object {
               "editable": true,
               "widget": "NumberInputField",
             },
@@ -130,7 +130,7 @@ exports[`Render Schema should render without required fields 1`] = `
         Object {
           "description": "Foo is bar",
           "meta": Object {
-            "form": Object {
+            "widgets": Object {
               "editable": true,
               "widget": "InputField",
             },
@@ -146,7 +146,7 @@ exports[`Render Schema should render without required fields 1`] = `
       schema={
         Object {
           "meta": Object {
-            "form": Object {
+            "widgets": Object {
               "editable": true,
               "ordinal": 1,
               "widget": "InputField",

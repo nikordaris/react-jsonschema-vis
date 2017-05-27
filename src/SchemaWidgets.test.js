@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import SchemaFields from './index.js';
+import SchemaWidgets from './index.js';
 
 const schema = {
   title: 'Test',
@@ -12,7 +12,7 @@ const schema = {
       title: 'Foo',
       type: 'number',
       meta: {
-        form: {
+        widgets: {
           editable: true,
           widget: 'NumberInputField'
         }
@@ -23,7 +23,7 @@ const schema = {
       type: 'string',
       required: true,
       meta: {
-        form: {
+        widgets: {
           ordinal: 1,
           editable: true,
           widget: 'InputField'
@@ -35,7 +35,7 @@ const schema = {
       description: 'Foo is bar',
       type: 'string',
       meta: {
-        form: {
+        widgets: {
           editable: true,
           widget: 'InputField'
         }
@@ -46,7 +46,7 @@ const schema = {
       description: 'Foo is bar',
       type: 'string',
       meta: {
-        form: {
+        widgets: {
           ordinal: 3,
           editable: true
         }
@@ -56,7 +56,7 @@ const schema = {
       title: 'Blah',
       type: 'string',
       meta: {
-        form: {
+        widgets: {
           editable: true,
           ordinal: 1
         }
@@ -77,14 +77,14 @@ const widgets = {
 describe('Render Schema', () => {
   it('should render', () => {
     const tree = renderer
-      .create(<SchemaFields schema={schema} widgets={widgets} />)
+      .create(<SchemaWidgets schema={schema} widgets={widgets} />)
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   it('should render without required fields', () => {
     const tree = renderer
-      .create(<SchemaFields schema={{...schema, required: undefined}} widgets={widgets} />)
+      .create(<SchemaWidgets schema={{...schema, required: undefined}} widgets={widgets} />)
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
@@ -92,13 +92,13 @@ describe('Render Schema', () => {
   it('should render single field schema', () => {
     const tree = renderer
       .create(
-        <SchemaFields
+        <SchemaWidgets
           namespace="bar"
           schema={{
             title: 'Foo',
             type: 'number',
             meta: {
-              form: {
+              widgets: {
                 ordinal: 0,
                 editable: true,
                 widget: 'NumberInputField'
@@ -115,7 +115,7 @@ describe('Render Schema', () => {
   it('should render without properties', () => {
     const tree = renderer
       .create(
-        <SchemaFields
+        <SchemaWidgets
           schema={{
             title: 'Test',
             type: 'object'

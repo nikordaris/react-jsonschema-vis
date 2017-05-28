@@ -21,7 +21,7 @@ declare type SchemaType = {
   uniqueItems?: boolean,
   maxProperties?: number,
   minProperties?: number,
-  required?: string[],
+  required?: string[] | boolean,
   additionalProperties?: boolean | SchemaType,
   definitions?: {
     [name: string]: SchemaType

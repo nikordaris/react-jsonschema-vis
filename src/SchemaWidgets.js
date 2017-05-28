@@ -58,7 +58,12 @@ export default class SchemaWidgets extends Component {
     const { styles, widgetsTag: WidgetsTag, prefix } = this.props;
     const { widgets: widgetsStyle } = evaluateStyle(styles, schema);
     const properties = schema.properties || {};
-
+    const required = (prop: SchemaType, key: string) => {
+      const required = Array.isArray(schema.required)
+        ? schema.required.includes(key)
+        : schema.required;
+      return required || Array.isArray(prop.required) ? false : prop.required;
+    };
     return (
       <WidgetsTag key={id} id={id} style={widgetsStyle}>
         {Object.keys(properties)
@@ -69,7 +74,7 @@ export default class SchemaWidgets extends Component {
               properties[prop],
               idx,
               prop,
-              schema.required ? schema.required.includes(prop) : properties[prop].required,
+              required(properties[prop], prop),
               parentName
             )
           )}
@@ -120,12 +125,7 @@ export default class SchemaWidgets extends Component {
   }
 
   render() {
-    const {
-      styles,
-      schema,
-      namespace,
-      widgetsTag: WidgetsTag
-    } = this.props;
+    const { styles, schema, namespace, widgetsTag: WidgetsTag } = this.props;
     const { widgets: widgetsStyle } = evaluateStyle(styles, schema);
 
     return (

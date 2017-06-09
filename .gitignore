@@ -62,3 +62,5 @@ flow-typed/npm
 
 #VS Code settings
 .vscode
+
+lib

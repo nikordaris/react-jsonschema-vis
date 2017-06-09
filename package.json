@@ -1,6 +1,6 @@
 {
   "name": "redux-jsonschema",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "main": "lib/index.js",
   "repository": {
@@ -18,8 +18,7 @@
     "build": "npm run clean; babel src --out-dir lib --ignore *.test.js",
     "clean": "rimraf lib coverage",
     "test": "concurrently \"flow\" \"eslint src/**/*.js\" \"jest\"",
-    "test:ci": "npm test && codecov",
-    "postinstall": "flow-typed install"
+    "test:ci": "npm test && codecov"
   },
   "jest": {
     "rootDir": "src",

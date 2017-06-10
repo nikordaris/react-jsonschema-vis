@@ -71,6 +71,7 @@ exports[`Render Schema should render 1`] = `
 exports[`Render Schema should render single field schema 1`] = `
 <input
   name="bar"
+  namespace="bar"
   required={false}
   schema={
     Object {
@@ -92,10 +93,12 @@ exports[`Render Schema should render single field schema 1`] = `
 
 exports[`Render Schema should render without name and with namespace 1`] = `
 <div
+  namespace="foo"
   style={Object {}}
 >
   <input
     name="foo.foo"
+    namespace="foo"
     required={false}
     schema={
       Object {
@@ -114,6 +117,7 @@ exports[`Render Schema should render without name and with namespace 1`] = `
   />
   <input
     name="foo.foobar"
+    namespace="foo"
     required={false}
     schema={
       Object {
@@ -132,6 +136,7 @@ exports[`Render Schema should render without name and with namespace 1`] = `
   />
   <input
     name="foo.bar"
+    namespace="foo"
     required={true}
     schema={
       Object {
@@ -150,9 +155,11 @@ exports[`Render Schema should render without name and with namespace 1`] = `
     style={Object {}}
   />
   <div
+    namespace="foo"
     style={Object {}}
   />
   <div
+    namespace="foo"
     style={Object {}}
   />
 </div>

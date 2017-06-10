@@ -2,18 +2,18 @@ import {
   getOrdinal,
   hasOrdinal,
   isEditable,
-  getWidget,
-  hasWidget
+  getComponent,
+  hasComponent
 } from './selectors';
 
 const mockSchemaWithDefaultPrefix = {
   description: 'description',
   title: 'title',
   meta: {
-    widgets: {
+    vis: {
       ordinal: 0,
       editable: true,
-      widget: 'Widget'
+      component: 'Component'
     }
   }
 };
@@ -21,10 +21,10 @@ const mockSchemaWithDefaultPrefixNoEdit = {
   description: 'description',
   title: 'title',
   meta: {
-    widgets: {
+    vis: {
       ordinal: 0,
       editable: false,
-      widget: 'Widget'
+      component: 'Component'
     }
   }
 };
@@ -37,7 +37,7 @@ const mockSchemaWithCustomPrefix = {
     foobar: {
       ordinal: 0,
       editable: true,
-      widget: 'Widget'
+      component: 'Component'
     }
   }
 };
@@ -48,7 +48,7 @@ const mockSchemaWithCustomPrefixNoEdit = {
     foobar: {
       ordinal: 0,
       editable: false,
-      widget: 'Widget'
+      component: 'Component'
     }
   }
 };
@@ -58,14 +58,14 @@ const mockSchemaWithNoPrefix = {
   title: 'title',
   ordinal: 0,
   editable: true,
-  widget: 'Widget'
+  component: 'Component'
 };
 const mockSchemaWithNoPrefixNoEdit = {
   description: 'description',
   title: 'title',
   ordinal: 0,
   editable: false,
-  widget: 'Widget'
+  component: 'Component'
 };
 
 const testOrdinal = (data, badData, prefix) => () => {
@@ -100,21 +100,21 @@ const testEditable = (data, badData, noEditData, prefix) => () => {
   });
 };
 
-const testWidget = (data, badData, prefix) => () => {
-  it('should have Widget', () => {
-    expect(hasWidget(data, prefix)).toBeTruthy();
+const testComponent = (data, badData, prefix) => () => {
+  it('should have Component', () => {
+    expect(hasComponent(data, prefix)).toBeTruthy();
   });
 
-  it('should not have Widget', () => {
-    expect(hasWidget(badData, prefix)).toBeFalsy();
+  it('should not have Component', () => {
+    expect(hasComponent(badData, prefix)).toBeFalsy();
   });
 
-  it('should get Widget', () => {
-    expect(getWidget(data, prefix)).toBe('Widget');
+  it('should get Component', () => {
+    expect(getComponent(data, prefix)).toBe('Component');
   });
 
-  it('should get default Widget', () => {
-    expect(getWidget(badData, prefix, 'Widget2')).toBe('Widget2');
+  it('should get default Component', () => {
+    expect(getComponent(badData, prefix, 'Component2')).toBe('Component2');
   });
 };
 
@@ -132,8 +132,8 @@ describe('Schema with Default Prefix', () => {
     )
   );
   describe(
-    'Widget Field Selectors',
-    testWidget(mockSchemaWithDefaultPrefix, mockSchemaWithCustomPrefix)
+    'Component Field Selectors',
+    testComponent(mockSchemaWithDefaultPrefix, mockSchemaWithCustomPrefix)
   );
 });
 
@@ -156,8 +156,8 @@ describe('Schema with Custom Prefix', () => {
     )
   );
   describe(
-    'Widget Field Selectors',
-    testWidget(
+    'Component Field Selectors',
+    testComponent(
       mockSchemaWithCustomPrefix,
       mockSchemaWithDefaultPrefix,
       customPrefix
@@ -180,7 +180,7 @@ describe('Schema with No Prefix', () => {
     )
   );
   describe(
-    'Widget Field Selectors',
-    testWidget(mockSchemaWithNoPrefix, mockSchemaWithDefaultPrefix, null)
+    'Component Field Selectors',
+    testComponent(mockSchemaWithNoPrefix, mockSchemaWithDefaultPrefix, null)
   );
 });

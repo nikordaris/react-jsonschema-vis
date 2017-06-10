@@ -1,7 +1,7 @@
 // @flow
 import { get, has } from 'lodash';
 
-export const DEFAULT_PREFIX = 'meta.widgets';
+export const DEFAULT_PREFIX = 'meta.vis';
 
 const _getPrefix = (schema: SchemaType, prefix: string = DEFAULT_PREFIX) =>
   get(schema, prefix, schema);
@@ -26,14 +26,26 @@ export function isEditable(
   return get(_getPrefix(schema, prefix), 'editable', defaultValue);
 }
 
-export function getWidget(
+export function getComponent(
   schema: SchemaType,
   prefix: string,
   defaultValue?: any
 ) {
-  return get(_getPrefix(schema, prefix), 'widget', defaultValue);
+  return get(_getPrefix(schema, prefix), 'component', defaultValue);
 }
 
-export function hasWidget(schema: SchemaType, prefix: string) {
-  return has(_getPrefix(schema, prefix), 'widget');
+export function hasComponent(schema: SchemaType, prefix: string) {
+  return has(_getPrefix(schema, prefix), 'component');
+}
+
+export function getStyle(
+  schema: SchemaType,
+  prefix: string,
+  defaultValue?: { [string]: any }
+) {
+  return get(_getPrefix(schema, prefix), 'style', defaultValue);
+}
+
+export function hasStyle(schema: SchemaType, prefix: string) {
+  return has(_getPrefix(schema, prefix), 'style');
 }

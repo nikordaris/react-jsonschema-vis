@@ -3,7 +3,9 @@ import {
   hasOrdinal,
   isEditable,
   getComponent,
-  hasComponent
+  hasComponent,
+  hasStyle,
+  getStyle
 } from './selectors';
 
 const mockSchemaWithDefaultPrefix = {
@@ -13,7 +15,10 @@ const mockSchemaWithDefaultPrefix = {
     vis: {
       ordinal: 0,
       editable: true,
-      component: 'Component'
+      component: 'Component',
+      style: {
+        background: 'black'
+      }
     }
   }
 };
@@ -24,7 +29,10 @@ const mockSchemaWithDefaultPrefixNoEdit = {
     vis: {
       ordinal: 0,
       editable: false,
-      component: 'Component'
+      component: 'Component',
+      style: {
+        background: 'black'
+      }
     }
   }
 };
@@ -37,7 +45,10 @@ const mockSchemaWithCustomPrefix = {
     foobar: {
       ordinal: 0,
       editable: true,
-      component: 'Component'
+      component: 'Component',
+      style: {
+        background: 'black'
+      }
     }
   }
 };
@@ -48,7 +59,10 @@ const mockSchemaWithCustomPrefixNoEdit = {
     foobar: {
       ordinal: 0,
       editable: false,
-      component: 'Component'
+      component: 'Component',
+      style: {
+        background: 'black'
+      }
     }
   }
 };
@@ -58,14 +72,20 @@ const mockSchemaWithNoPrefix = {
   title: 'title',
   ordinal: 0,
   editable: true,
-  component: 'Component'
+  component: 'Component',
+  style: {
+    background: 'black'
+  }
 };
 const mockSchemaWithNoPrefixNoEdit = {
   description: 'description',
   title: 'title',
   ordinal: 0,
   editable: false,
-  component: 'Component'
+  component: 'Component',
+  style: {
+    background: 'black'
+  }
 };
 
 const testOrdinal = (data, badData, prefix) => () => {
@@ -118,6 +138,26 @@ const testComponent = (data, badData, prefix) => () => {
   });
 };
 
+const testStyle = (data, badData, prefix) => () => {
+  it('should have Style', () => {
+    expect(hasStyle(data, prefix)).toBeTruthy();
+  });
+
+  it('should not have Style', () => {
+    expect(hasStyle(badData, prefix)).toBeFalsy();
+  });
+
+  it('should get Style', () => {
+    expect(getStyle(data, prefix)).toEqual({ background: 'black' });
+  });
+
+  it('should get default Style', () => {
+    expect(getStyle(badData, prefix, { background: 'white' })).toEqual({
+      background: 'white'
+    });
+  });
+};
+
 describe('Schema with Default Prefix', () => {
   describe(
     'Ordinal Field Selectors',
@@ -134,6 +174,10 @@ describe('Schema with Default Prefix', () => {
   describe(
     'Component Field Selectors',
     testComponent(mockSchemaWithDefaultPrefix, mockSchemaWithCustomPrefix)
+  );
+  describe(
+    'Style Field Selectors',
+    testStyle(mockSchemaWithDefaultPrefix, mockSchemaWithCustomPrefix)
   );
 });
 
@@ -163,6 +207,14 @@ describe('Schema with Custom Prefix', () => {
       customPrefix
     )
   );
+  describe(
+    'Style Field Selectors',
+    testStyle(
+      mockSchemaWithCustomPrefix,
+      mockSchemaWithDefaultPrefix,
+      customPrefix
+    )
+  );
 });
 
 describe('Schema with No Prefix', () => {
@@ -182,5 +234,9 @@ describe('Schema with No Prefix', () => {
   describe(
     'Component Field Selectors',
     testComponent(mockSchemaWithNoPrefix, mockSchemaWithDefaultPrefix, null)
+  );
+  describe(
+    'Style Field Selectors',
+    testStyle(mockSchemaWithNoPrefix, mockSchemaWithDefaultPrefix, null)
   );
 });

@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import SchemaWidgets from './index.js';
+import SchemaVis from './index.js';
 
 const schema = {
   title: 'Test',
@@ -12,9 +12,9 @@ const schema = {
       title: 'Foo',
       type: 'number',
       meta: {
-        widgets: {
+        vis: {
           editable: true,
-          widget: 'NumberInputField'
+          component: 'NumberInputField'
         }
       }
     },
@@ -23,10 +23,10 @@ const schema = {
       type: 'string',
       required: true,
       meta: {
-        widgets: {
+        vis: {
           ordinal: 1,
           editable: true,
-          widget: 'InputField'
+          component: 'InputField'
         }
       }
     },
@@ -35,9 +35,9 @@ const schema = {
       description: 'Foo is bar',
       type: 'string',
       meta: {
-        widgets: {
+        vis: {
           editable: true,
-          widget: 'InputField'
+          component: 'InputField'
         }
       }
     },
@@ -46,7 +46,7 @@ const schema = {
       description: 'Foo is bar',
       type: 'string',
       meta: {
-        widgets: {
+        vis: {
           ordinal: 3,
           editable: true
         }
@@ -56,7 +56,7 @@ const schema = {
       title: 'Blah',
       type: 'string',
       meta: {
-        widgets: {
+        vis: {
           editable: true,
           ordinal: 1
         }
@@ -69,7 +69,7 @@ const schema = {
   }
 };
 
-const widgets = {
+const components = {
   NumberInputField: <input type="number" />,
   InputField: 'input'
 };
@@ -77,14 +77,19 @@ const widgets = {
 describe('Render Schema', () => {
   it('should render', () => {
     const tree = renderer
-      .create(<SchemaWidgets schema={schema} widgets={widgets} />)
+      .create(<SchemaVis schema={schema} components={components} />)
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   it('should render without required fields', () => {
     const tree = renderer
-      .create(<SchemaWidgets schema={{...schema, required: undefined}} widgets={widgets} />)
+      .create(
+        <SchemaVis
+          schema={{ ...schema, required: undefined }}
+          components={components}
+        />
+      )
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
@@ -92,20 +97,20 @@ describe('Render Schema', () => {
   it('should render single field schema', () => {
     const tree = renderer
       .create(
-        <SchemaWidgets
+        <SchemaVis
           namespace="bar"
           schema={{
             title: 'Foo',
             type: 'number',
             meta: {
-              widgets: {
+              vis: {
                 ordinal: 0,
                 editable: true,
-                widget: 'NumberInputField'
+                component: 'NumberInputField'
               }
             }
           }}
-          widgets={widgets}
+          components={components}
         />
       )
       .toJSON();
@@ -115,13 +120,22 @@ describe('Render Schema', () => {
   it('should render without properties', () => {
     const tree = renderer
       .create(
-        <SchemaWidgets
+        <SchemaVis
           schema={{
             title: 'Test',
             type: 'object'
           }}
-          widgets={widgets}
+          components={components}
         />
+      )
+      .toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('should render without name and with namespace', () => {
+    const tree = renderer
+      .create(
+        <SchemaVis schema={schema} namespace="foo" components={components} />
       )
       .toJSON();
     expect(tree).toMatchSnapshot();

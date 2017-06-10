@@ -43,33 +43,25 @@ declare type SchemaType = {
   not?: SchemaType
 };
 
-declare type SchemaWidgetsStylesType = {
-  widgets: (
+declare type SchemaVisStylesType = {
+  components: (
     schema: SchemaType
   ) => { [string]: string | number } | { [string]: string | number },
-  widget: (
+  component: (
     schema: SchemaType
   ) => { [string]: string | number } | { [string]: string | number }
 };
 
-declare module 'jsonschema-redux-form' {
+declare module 'react-jsonschema-vis' {
   declare module.exports: {
     SchemaType: SchemaType,
-    SchemaWidgetsStylesType: SchemaWidgetsStylesType,
-    getOrdinal(
-      schema: SchemaType,
-      prefix?: string,
-      defaultValue?: any
-    ): number,
+    SchemaVisStylesType: SchemaVisStylesType,
+    getOrdinal(schema: SchemaType, prefix?: string, defaultValue?: any): number,
     getEditable(
       schema: SchemaType,
       prefix?: string,
       defaultValue?: any
     ): boolean,
-    getWidget(
-      schema: SchemaType,
-      prefix?: string,
-      defaultValue?: any
-    ): string
+    getWidget(schema: SchemaType, prefix?: string, defaultValue?: any): string
   };
 }

@@ -1,3 +1,3 @@
 export * from './selectors';
-export * from './SchemaWidgets';
-export default from './SchemaWidgets';
+export * from './SchemaVis';
+export default from './SchemaVis';

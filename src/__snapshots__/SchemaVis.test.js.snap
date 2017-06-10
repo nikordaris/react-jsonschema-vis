@@ -1,0 +1,233 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render Schema should render 1`] = `
+<div
+  style={Object {}}
+>
+  <input
+    name="foo"
+    required={false}
+    schema={
+      Object {
+        "meta": Object {
+          "vis": Object {
+            "component": "NumberInputField",
+            "editable": true,
+          },
+        },
+        "title": "Foo",
+        "type": "number",
+      }
+    }
+    style={Object {}}
+    type="number"
+  />
+  <input
+    name="foobar"
+    required={false}
+    schema={
+      Object {
+        "description": "Foo is bar",
+        "meta": Object {
+          "vis": Object {
+            "component": "InputField",
+            "editable": true,
+          },
+        },
+        "title": "Foobar",
+        "type": "string",
+      }
+    }
+    style={Object {}}
+  />
+  <input
+    name="bar"
+    required={true}
+    schema={
+      Object {
+        "meta": Object {
+          "vis": Object {
+            "component": "InputField",
+            "editable": true,
+            "ordinal": 1,
+          },
+        },
+        "required": true,
+        "title": "Bar",
+        "type": "string",
+      }
+    }
+    style={Object {}}
+  />
+  <div
+    style={Object {}}
+  />
+  <div
+    style={Object {}}
+  />
+</div>
+`;
+
+exports[`Render Schema should render single field schema 1`] = `
+<input
+  name="bar"
+  required={false}
+  schema={
+    Object {
+      "meta": Object {
+        "vis": Object {
+          "component": "NumberInputField",
+          "editable": true,
+          "ordinal": 0,
+        },
+      },
+      "title": "Foo",
+      "type": "number",
+    }
+  }
+  style={Object {}}
+  type="number"
+/>
+`;
+
+exports[`Render Schema should render without name and with namespace 1`] = `
+<div
+  style={Object {}}
+>
+  <input
+    name="foo.foo"
+    required={false}
+    schema={
+      Object {
+        "meta": Object {
+          "vis": Object {
+            "component": "NumberInputField",
+            "editable": true,
+          },
+        },
+        "title": "Foo",
+        "type": "number",
+      }
+    }
+    style={Object {}}
+    type="number"
+  />
+  <input
+    name="foo.foobar"
+    required={false}
+    schema={
+      Object {
+        "description": "Foo is bar",
+        "meta": Object {
+          "vis": Object {
+            "component": "InputField",
+            "editable": true,
+          },
+        },
+        "title": "Foobar",
+        "type": "string",
+      }
+    }
+    style={Object {}}
+  />
+  <input
+    name="foo.bar"
+    required={true}
+    schema={
+      Object {
+        "meta": Object {
+          "vis": Object {
+            "component": "InputField",
+            "editable": true,
+            "ordinal": 1,
+          },
+        },
+        "required": true,
+        "title": "Bar",
+        "type": "string",
+      }
+    }
+    style={Object {}}
+  />
+  <div
+    style={Object {}}
+  />
+  <div
+    style={Object {}}
+  />
+</div>
+`;
+
+exports[`Render Schema should render without properties 1`] = `
+<div
+  style={Object {}}
+/>
+`;
+
+exports[`Render Schema should render without required fields 1`] = `
+<div
+  style={Object {}}
+>
+  <input
+    name="foo"
+    required={false}
+    schema={
+      Object {
+        "meta": Object {
+          "vis": Object {
+            "component": "NumberInputField",
+            "editable": true,
+          },
+        },
+        "title": "Foo",
+        "type": "number",
+      }
+    }
+    style={Object {}}
+    type="number"
+  />
+  <input
+    name="foobar"
+    required={false}
+    schema={
+      Object {
+        "description": "Foo is bar",
+        "meta": Object {
+          "vis": Object {
+            "component": "InputField",
+            "editable": true,
+          },
+        },
+        "title": "Foobar",
+        "type": "string",
+      }
+    }
+    style={Object {}}
+  />
+  <input
+    name="bar"
+    required={true}
+    schema={
+      Object {
+        "meta": Object {
+          "vis": Object {
+            "component": "InputField",
+            "editable": true,
+            "ordinal": 1,
+          },
+        },
+        "required": true,
+        "title": "Bar",
+        "type": "string",
+      }
+    }
+    style={Object {}}
+  />
+  <div
+    style={Object {}}
+  />
+  <div
+    style={Object {}}
+  />
+</div>
+`;

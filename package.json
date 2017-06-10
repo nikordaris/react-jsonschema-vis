@@ -1,16 +1,16 @@
 {
-  "name": "redux-jsonschema",
-  "version": "0.0.3",
+  "name": "react-jsonschema-vis",
+  "version": "0.0.1",
   "description": "",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nikordaris/jsonschema-redux-form.git"
+    "url": "git+https://github.com/nikordaris/react-jsonschema-vis.git"
   },
   "bugs": {
-    "url": "https://github.com/nikordaris/jsonschema-redux-form/issues"
+    "url": "https://github.com/nikordaris/react-jsonschema-vis/issues"
   },
-  "homepage": "https://github.com/nikordaris/jsonschema-redux-form#readme",
+  "homepage": "https://github.com/nikordaris/react-jsonschema-vis#readme",
   "author": "Nikordaris",
   "license": "MIT",
   "scripts": {

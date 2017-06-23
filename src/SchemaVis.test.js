@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import renderer from 'react-test-renderer';
 
 import SchemaVis from './index.js';
@@ -37,7 +37,7 @@ const schema = {
       meta: {
         vis: {
           editable: true,
-          component: 'InputField'
+          component: 'EmailInputField'
         }
       }
     },
@@ -69,7 +69,14 @@ const schema = {
   }
 };
 
+class EmailInputField extends Component {
+  render() {
+    return <input type="email" {...this.props} />;
+  }
+}
+
 const components = {
+  EmailInputField,
   NumberInputField: <input type="number" />,
   InputField: 'input'
 };

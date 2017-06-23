@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { has, get, isString, merge, omit } from 'lodash';
+import { has, get, isString, merge, omit, isFunction } from 'lodash';
 import evaluateStyle from 'evaluate-style';
 
 import {
@@ -123,15 +123,15 @@ export default class SchemaVis extends Component {
         ...rest
       };
 
-      if (isString(ComponentVis)) {
-        return (
-          <ComponentVis {...componentAttributes}>
-            {this.renderChildren(schema, componentName)}
-          </ComponentVis>
+      if (React.isValidElement(ComponentVis)) {
+        return React.cloneElement(
+          ComponentVis,
+          componentAttributes,
+          this.renderChildren(schema, componentName)
         );
       }
 
-      return React.cloneElement(
+      return React.createElement(
         ComponentVis,
         componentAttributes,
         this.renderChildren(schema, componentName)

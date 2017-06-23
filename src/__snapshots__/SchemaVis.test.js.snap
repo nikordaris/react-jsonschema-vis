@@ -30,7 +30,7 @@ exports[`Render Schema should render 1`] = `
         "description": "Foo is bar",
         "meta": Object {
           "vis": Object {
-            "component": "InputField",
+            "component": "EmailInputField",
             "editable": true,
           },
         },
@@ -39,6 +39,7 @@ exports[`Render Schema should render 1`] = `
       }
     }
     style={Object {}}
+    type="email"
   />
   <input
     name="bar"
@@ -124,7 +125,7 @@ exports[`Render Schema should render without name and with namespace 1`] = `
         "description": "Foo is bar",
         "meta": Object {
           "vis": Object {
-            "component": "InputField",
+            "component": "EmailInputField",
             "editable": true,
           },
         },
@@ -133,6 +134,7 @@ exports[`Render Schema should render without name and with namespace 1`] = `
       }
     }
     style={Object {}}
+    type="email"
   />
   <input
     name="foo.bar"
@@ -201,7 +203,7 @@ exports[`Render Schema should render without required fields 1`] = `
         "description": "Foo is bar",
         "meta": Object {
           "vis": Object {
-            "component": "InputField",
+            "component": "EmailInputField",
             "editable": true,
           },
         },
@@ -210,6 +212,7 @@ exports[`Render Schema should render without required fields 1`] = `
       }
     }
     style={Object {}}
+    type="email"
   />
   <input
     name="bar"

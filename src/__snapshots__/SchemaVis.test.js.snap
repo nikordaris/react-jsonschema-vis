@@ -73,7 +73,7 @@ exports[`Render Schema should render single field schema 1`] = `
 <input
   name="bar"
   namespace="bar"
-  required={undefined}
+  required={false}
   schema={
     Object {
       "meta": Object {

@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { has, get, isString, merge, omit, isFunction } from 'lodash';
+import { has, get, merge, omit } from 'lodash';
 import evaluateStyle from 'evaluate-style';
 
 import {
@@ -38,9 +38,7 @@ function isRequired(schema: SchemaType, prop: SchemaType, key: string) {
   const required = Array.isArray(schema.required)
     ? schema.required.includes(key)
     : schema.required;
-  const rv =
-    required || (Array.isArray(prop.required) ? false : !!prop.required);
-  return rv;
+  return required || (Array.isArray(prop.required) ? false : !!prop.required);
 }
 
 export default class SchemaVis extends Component {
@@ -83,7 +81,7 @@ export default class SchemaVis extends Component {
     schema: SchemaType,
     idx: number | string,
     name?: string,
-    required: boolean,
+    required: boolean = false,
     namespace?: string
   ) {
     const { styles, components, componentProps, prefix, tag: Tag } = this.props;

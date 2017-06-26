@@ -38,7 +38,9 @@ function isRequired(schema: SchemaType, prop: SchemaType, key: string) {
   const required = Array.isArray(schema.required)
     ? schema.required.includes(key)
     : schema.required;
-  return required || Array.isArray(prop.required) ? false : !!prop.required;
+  const rv =
+    required || (Array.isArray(prop.required) ? false : !!prop.required);
+  return rv;
 }
 
 export default class SchemaVis extends Component {
@@ -81,7 +83,7 @@ export default class SchemaVis extends Component {
     schema: SchemaType,
     idx: number | string,
     name?: string,
-    required: boolean = false,
+    required: boolean,
     namespace?: string
   ) {
     const { styles, components, componentProps, prefix, tag: Tag } = this.props;

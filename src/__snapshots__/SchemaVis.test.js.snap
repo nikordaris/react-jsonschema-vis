@@ -6,7 +6,7 @@ exports[`Render Schema should render 1`] = `
 >
   <input
     name="foo"
-    required={false}
+    required={true}
     schema={
       Object {
         "meta": Object {
@@ -24,7 +24,7 @@ exports[`Render Schema should render 1`] = `
   />
   <input
     name="foobar"
-    required={false}
+    required={true}
     schema={
       Object {
         "description": "Foo is bar",
@@ -73,7 +73,7 @@ exports[`Render Schema should render single field schema 1`] = `
 <input
   name="bar"
   namespace="bar"
-  required={false}
+  required={undefined}
   schema={
     Object {
       "meta": Object {
@@ -100,7 +100,7 @@ exports[`Render Schema should render without name and with namespace 1`] = `
   <input
     name="foo.foo"
     namespace="foo"
-    required={false}
+    required={true}
     schema={
       Object {
         "meta": Object {
@@ -119,7 +119,7 @@ exports[`Render Schema should render without name and with namespace 1`] = `
   <input
     name="foo.foobar"
     namespace="foo"
-    required={false}
+    required={true}
     schema={
       Object {
         "description": "Foo is bar",

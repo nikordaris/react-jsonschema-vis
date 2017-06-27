@@ -9,7 +9,8 @@ import {
   getOrdinal,
   hasOrdinal,
   getComponent,
-  hasComponent
+  hasComponent,
+  getStyle
 } from './selectors';
 
 const LABEL_PROP = 'title';
@@ -84,11 +85,18 @@ export default class SchemaVis extends Component {
     required: boolean = false,
     namespace?: string
   ) {
-    const { styles, components, componentProps, prefix, tag: Tag } = this.props;
     const {
-      component: componentStyles = {},
-      components: componentsStyles = {}
-    } = evaluateStyle(styles, schema);
+      styles: {
+        component: componentStyles = {},
+        components: componentsStyles = {}
+      },
+      components,
+      componentProps,
+      prefix,
+      tag: Tag
+    } = this.props;
+
+    const schemaStyle = getStyle(schema, prefix, {});
     const componentName = namespace && name ? `${namespace}.${name}` : name;
     const component = getComponent(schema, prefix);
     const rest = omit(this.props, [
@@ -102,19 +110,14 @@ export default class SchemaVis extends Component {
 
     if (hasComponent(schema, prefix) && has(components, component)) {
       const ComponentVis = get(components, component);
-      let { styles: componentPropStyles = {}, ...componentProp } = get(
+      const { styles: componentPropStyles = {}, ...componentProp } = get(
         componentProps,
         component,
         {}
       );
-      componentPropStyles = evaluateStyle(componentPropStyles, {
-        schema,
-        name,
-        required,
-        namespace
-      });
+
       const componentAttributes = {
-        style: merge(componentStyles, componentPropStyles),
+        styles: merge({}, componentStyles, componentPropStyles, schemaStyle),
         key: idx,
         name: componentName,
         schema,
@@ -139,7 +142,7 @@ export default class SchemaVis extends Component {
     }
 
     return (
-      <Tag key={idx} style={componentsStyles} {...componentProps} {...rest}>
+      <Tag key={idx} {...rest}>
         {this.renderChildren(schema, componentName)}
       </Tag>
     );

@@ -18,7 +18,9 @@
     "build": "npm run clean; babel src --out-dir lib --ignore *.test.js",
     "clean": "rimraf lib coverage",
     "test": "concurrently \"flow\" \"eslint src/**/*.js\" \"jest\"",
-    "test:ci": "npm test && codecov"
+    "test:ci": "npm test && codecov && npm run build-storybook",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "jest": {
     "rootDir": "src",
@@ -30,6 +32,8 @@
     "collectCoverage": true
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^3.1.6",
+    "@storybook/react": "^3.1.6",
     "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
     "babel-eslint": "^7.2.3",
@@ -53,6 +57,7 @@
     "jest-cli": "^20.0.4",
     "prettydiff": "^99.0.1",
     "react": "^15.5.4",
+    "react-dom": "^15.6.1",
     "react-test-renderer": "^15.5.4",
     "rimraf": "^2.6.1"
   },

@@ -9,3 +9,8 @@ Renders widget components for each property of a jsonschema definition. Useful f
 ```bash
 $ npm install react-jsonschema-vis
 ```
+## Usage
+
+[Example](https://github.com/nikordaris/react-jsonschema-vis/blob/master/stories/index.js)
+
+[Demo](https://nikordaris.github.io/react-jsonschema-vis/)

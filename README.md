@@ -1,4 +1,4 @@
-# Redux Jsonschema
+# React Jsonschema Visualization
 Renders widget components for each property of a jsonschema definition. Useful for forms and customized display of data.
 
 [![Travis](https://img.shields.io/travis/nikordaris/react-jsonschema-vis.svg?style=plastic)]()

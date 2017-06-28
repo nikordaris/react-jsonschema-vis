@@ -3,6 +3,8 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import SchemaVis from '../src';
 
+import schema from './schema.json';
+
 function createInputField({ type, ...config }) {
   class CreatedInputField extends Component {
     render() {
@@ -42,105 +44,85 @@ const inputFields = {
   }),
   TextAreaInputField: createInputField({ type: 'textarea' })
 };
-storiesOf('React Jsonschema Vis', module).add('simple form', () => {
-  const schema = {
-    type: 'object',
-    required: ['fullName', 'email', 'password'],
-    properties: {
-      fullName: {
-        id: 'FullName',
-        title: 'Full Name',
-        type: 'string',
-        meta: {
-          vis: {
-            ordinal: 100,
-            editable: true,
-            component: 'TextInputField'
-          }
-        }
-      },
-      email: {
-        id: 'Email',
-        title: 'Email',
-        type: 'string',
-        format: 'email',
-        meta: {
-          vis: {
-            ordinal: 110,
-            editable: true,
-            component: 'EmailInputField'
-          }
-        }
-      },
-      password: {
-        id: 'Password',
-        title: 'Password',
-        type: 'string',
-        meta: {
-          vis: {
-            ordinal: 120,
-            editable: true,
-            component: 'PasswordInputField'
-          }
-        }
-      },
-      dob: {
-        id: 'DOB',
-        title: 'DOB',
-        type: 'string',
-        format: 'date',
-        meta: {
-          vis: {
-            ordinal: 130,
-            editable: true,
-            component: 'DateInputField'
-          }
-        }
-      },
-      numChildren: {
-        id: 'Children',
-        title: '# of Children',
-        type: 'integer',
-        min: 0,
-        meta: {
-          vis: {
-            ordinal: 140,
-            editable: true,
-            component: 'NumberInputField'
-          }
-        }
-      },
-      favColor: {
-        id: 'FavColor',
-        title: 'Favorite Color',
-        type: 'string',
-        meta: {
-          vis: {
-            ordinal: 150,
-            editable: true,
-            component: 'ColorInputField'
-          }
-        }
-      },
-      comments: {
-        id: 'Comments',
-        title: 'Comments',
-        type: 'string',
-        meta: {
-          vis: {
-            ordinal: 180,
-            editable: true,
-            component: 'TextAreaInputField'
-          }
-        }
-      }
-    }
-  };
 
-  return (
+const data = {
+  fullName: 'Jon Doe',
+  email: 'jon@doe.com',
+  password: 'password',
+  dob: new Date().toDateString(),
+  numChildren: 1,
+  favColor: '#111111',
+  comments: 'hello world'
+};
+
+class VisField extends Component {
+  render() {
+    const { name, data, schema, styles, children, ...rest } = this.props;
+    return (
+      <div>
+        <h4>{schema.title}</h4>
+        {children}
+      </div>
+    );
+  }
+}
+
+class StringField extends Component {
+  render() {
+    const { name, data } = this.props;
+    return (
+      <VisField {...this.props}>
+        <span>{data[name]}</span>
+      </VisField>
+    );
+  }
+}
+
+class ColorField extends Component {
+  render() {
+    const { name, data } = this.props;
+    return (
+      <VisField {...this.props}>
+        <span
+          style={{
+            background: data[name],
+            color: data[name] === '#FFFFFF' ? 'black' : 'white'
+          }}
+        >
+          {data[name]}
+        </span>
+      </VisField>
+    );
+  }
+}
+
+class EmailField extends Component {
+  render() {
+    const { name, data } = this.props;
+    return (
+      <VisField {...this.props}>
+        <a href={`mailto:${data[name]}`}
+        >
+          {data[name]}
+        </a>
+      </VisField>
+    );
+  }
+}
+
+const visComponents = {
+  StringField,
+  ColorField,
+  EmailField
+};
+
+storiesOf('React Jsonschema Vis', module)
+  .add('simple form', () => (
     <form onSubmit={action('form submit')}>
-      <SchemaVis schema={schema} components={inputFields} />
+      <SchemaVis prefix="meta.form" schema={schema} components={inputFields} />
       <button color="primary" type="submit">Submit</button>
     </form>
-  );
-});
+  ))
+  .add('simple data visualization', () => (
+    <SchemaVis data={data} schema={schema} components={visComponents} />
+  ));

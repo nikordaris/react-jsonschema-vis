@@ -1,11 +1,10 @@
 // @flow
 import React, { Component } from 'react';
 import { has, get, merge, omit } from 'lodash';
-import evaluateStyle from 'evaluate-style';
 
 import {
   DEFAULT_PREFIX,
-  isEditable,
+  isDisabled,
   getOrdinal,
   hasOrdinal,
   getComponent,
@@ -65,7 +64,7 @@ export default class SchemaVis extends Component {
       ? schema.properties
       : {};
     return Object.keys(children)
-      .filter(prop => isEditable(children[prop], prefix, false))
+      .filter(prop => !isDisabled(children[prop], prefix))
       .sort(_compare(children, prefix))
       .map((prop, idx) =>
         this.renderSchema(

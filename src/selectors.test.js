@@ -1,7 +1,7 @@
 import {
   getOrdinal,
   hasOrdinal,
-  isEditable,
+  isDisabled,
   getComponent,
   hasComponent,
   hasStyle,
@@ -14,7 +14,6 @@ const mockSchemaWithDefaultPrefix = {
   meta: {
     vis: {
       ordinal: 0,
-      editable: true,
       component: 'Component',
       style: {
         background: 'black'
@@ -28,7 +27,7 @@ const mockSchemaWithDefaultPrefixNoEdit = {
   meta: {
     vis: {
       ordinal: 0,
-      editable: false,
+      disable: true,
       component: 'Component',
       style: {
         background: 'black'
@@ -44,7 +43,6 @@ const mockSchemaWithCustomPrefix = {
   meta: {
     foobar: {
       ordinal: 0,
-      editable: true,
       component: 'Component',
       style: {
         background: 'black'
@@ -58,7 +56,7 @@ const mockSchemaWithCustomPrefixNoEdit = {
   meta: {
     foobar: {
       ordinal: 0,
-      editable: false,
+      disable: true,
       component: 'Component',
       style: {
         background: 'black'
@@ -71,7 +69,6 @@ const mockSchemaWithNoPrefix = {
   description: 'description',
   title: 'title',
   ordinal: 0,
-  editable: true,
   component: 'Component',
   style: {
     background: 'black'
@@ -81,7 +78,7 @@ const mockSchemaWithNoPrefixNoEdit = {
   description: 'description',
   title: 'title',
   ordinal: 0,
-  editable: false,
+  disable: true,
   component: 'Component',
   style: {
     background: 'black'
@@ -107,16 +104,16 @@ const testOrdinal = (data, badData, prefix) => () => {
 };
 
 const testEditable = (data, badData, noEditData, prefix) => () => {
-  it('should be editable', () => {
-    expect(isEditable(data, prefix)).toBeTruthy();
+  it('should not be disable', () => {
+    expect(isDisabled(data, prefix)).toBeFalsy();
   });
 
-  it('should not be editable for missing field', () => {
-    expect(isEditable(badData, prefix)).toBeFalsy();
+  it('should not be disabled for missing field', () => {
+    expect(isDisabled(badData, prefix)).toBeFalsy();
   });
 
-  it('should not be editable', () => {
-    expect(isEditable(noEditData, prefix)).toBeFalsy();
+  it('should be disable', () => {
+    expect(isDisabled(noEditData, prefix)).toBeTruthy();
   });
 };
 

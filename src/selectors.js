@@ -18,12 +18,8 @@ export function hasOrdinal(schema: SchemaType, prefix: string) {
   return has(_getPrefix(schema, prefix), 'ordinal');
 }
 
-export function isEditable(
-  schema: SchemaType,
-  prefix: string,
-  defaultValue?: any
-) {
-  return get(_getPrefix(schema, prefix), 'editable', defaultValue);
+export function isDisabled(schema: SchemaType, prefix: string) {
+  return get(_getPrefix(schema, prefix), 'disable', false);
 }
 
 export function getComponent(

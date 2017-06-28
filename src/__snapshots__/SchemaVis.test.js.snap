@@ -2,6 +2,7 @@
 
 exports[`Render Schema should render 1`] = `
 <div>
+  <div />
   <input
     name="foo"
     required={true}
@@ -90,6 +91,9 @@ exports[`Render Schema should render without name and with namespace 1`] = `
 <div
   namespace="foo"
 >
+  <div
+    namespace="foo"
+  />
   <input
     name="foo.foo"
     namespace="foo"
@@ -162,6 +166,7 @@ exports[`Render Schema should render without properties 1`] = `<div />`;
 
 exports[`Render Schema should render without required fields 1`] = `
 <div>
+  <div />
   <input
     name="foo"
     required={false}

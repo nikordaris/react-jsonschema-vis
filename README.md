@@ -14,3 +14,7 @@ $ npm install react-jsonschema-vis
 [Example](https://github.com/nikordaris/react-jsonschema-vis/blob/master/stories/index.js)
 
 [Demo](https://nikordaris.github.io/react-jsonschema-vis/)
+
+## Component Libraries
+
+1. [Reactstrap for Redux-Form](https://github.com/nikordaris/redux-form-jsonschema-reactstrap)

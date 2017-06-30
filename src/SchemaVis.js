@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { has, get, merge, omit } from 'lodash';
+import { has, get, merge, omit, isEmpty } from 'lodash';
 
 import {
   DEFAULT_PREFIX,
@@ -77,6 +77,32 @@ export default class SchemaVis extends Component {
       );
   }
 
+  renderSchemaValidators(schema: SchemaType, namespace?: string) {
+    const { oneOf, allOf, anyOf, items } = schema;
+    return {
+      oneOf: oneOf && this.renderSchemaValidator('oneOf', oneOf, namespace),
+      allOf: allOf && this.renderSchemaValidator('allOf', allOf, namespace),
+      anyOf: anyOf && this.renderSchemaValidator('anyOf', anyOf, namespace),
+      items: items && this.renderSchemaValidator('items', items, namespace)
+    };
+  }
+
+  renderSchemaValidator(
+    validator: string,
+    schema: SchemaType[] | SchemaType,
+    namespace?: string
+  ) {
+    const id = namespace ? `${namespace}-${validator}` : validator;
+    if (Array.isArray(schema)) {
+      return schema
+        .map((s, idx) =>
+          this.renderSchema(s, `${id}-${idx}`, undefined, false, namespace)
+        )
+        .filter(r => !!r);
+    }
+    return this.renderSchema(schema, id, undefined, false, namespace);
+  }
+
   renderSchema(
     schema: SchemaType,
     idx: number | string,
@@ -85,10 +111,7 @@ export default class SchemaVis extends Component {
     namespace?: string
   ) {
     const {
-      styles: {
-        component: componentStyles = {},
-        components: componentsStyles = {}
-      },
+      styles: { component: componentStyles = {} },
       components,
       componentProps,
       prefix,
@@ -96,7 +119,9 @@ export default class SchemaVis extends Component {
     } = this.props;
 
     const schemaStyle = getStyle(schema, prefix, {});
-    const componentName = namespace && name ? `${namespace}.${name}` : name;
+    const componentName = namespace && name
+      ? `${namespace}.${name}`
+      : name || namespace || schema.id;
     const component = getComponent(schema, prefix);
     const rest = omit(this.props, [
       'schema',
@@ -121,6 +146,7 @@ export default class SchemaVis extends Component {
         name: componentName,
         schema,
         required,
+        ...this.renderSchemaValidators(schema, componentName),
         ...componentProp,
         ...rest
       };
@@ -138,13 +164,15 @@ export default class SchemaVis extends Component {
         componentAttributes,
         this.renderChildren(schema, componentName)
       );
+    } else if (!isEmpty(get(schema, 'properties', []))) {
+      return (
+        <Tag key={idx} {...rest}>
+          {this.renderChildren(schema, componentName)}
+        </Tag>
+      );
     }
 
-    return (
-      <Tag key={idx} {...rest}>
-        {this.renderChildren(schema, componentName)}
-      </Tag>
-    );
+    return undefined;
   }
 
   render() {

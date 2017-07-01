@@ -34,11 +34,8 @@ function _compare(obj: { [name: string]: any }, prefix: string) {
   };
 }
 
-function isRequired(schema: SchemaType, prop: SchemaType, key: string) {
-  const required = Array.isArray(schema.required)
-    ? schema.required.includes(key)
-    : schema.required;
-  return required || (Array.isArray(prop.required) ? false : !!prop.required);
+function isRequired(schema: SchemaType, key: string) {
+  return schema.required && schema.required.includes(key);
 }
 
 export default class SchemaVis extends Component {
@@ -58,7 +55,7 @@ export default class SchemaVis extends Component {
     tag: string
   };
 
-  renderChildren(schema: SchemaType, namespace?: string) {
+  renderChildren = (schema: SchemaType, namespace?: string) => {
     const { prefix } = this.props;
     const children = schema.type === 'object' && schema.properties
       ? schema.properties
@@ -70,46 +67,18 @@ export default class SchemaVis extends Component {
         this.renderSchema(
           children[prop],
           idx,
-          prop,
-          isRequired(schema, children[prop], prop),
-          namespace
+          namespace ? `${namespace}.${prop}` : prop,
+          isRequired(schema, prop)
         )
       );
-  }
+  };
 
-  renderSchemaValidators(schema: SchemaType, namespace?: string) {
-    const { oneOf, allOf, anyOf, items } = schema;
-    return {
-      oneOf: oneOf && this.renderSchemaValidator('oneOf', oneOf, namespace),
-      allOf: allOf && this.renderSchemaValidator('allOf', allOf, namespace),
-      anyOf: anyOf && this.renderSchemaValidator('anyOf', anyOf, namespace),
-      items: items && this.renderSchemaValidator('items', items, namespace)
-    };
-  }
-
-  renderSchemaValidator(
-    validator: string,
-    schema: SchemaType[] | SchemaType,
-    namespace?: string
-  ) {
-    const id = namespace ? `${namespace}-${validator}` : validator;
-    if (Array.isArray(schema)) {
-      return schema
-        .map((s, idx) =>
-          this.renderSchema(s, `${id}-${idx}`, undefined, false, namespace)
-        )
-        .filter(r => !!r);
-    }
-    return this.renderSchema(schema, id, undefined, false, namespace);
-  }
-
-  renderSchema(
+  renderSchema = (
     schema: SchemaType,
     idx: number | string,
     name?: string,
-    required: boolean = false,
-    namespace?: string
-  ) {
+    required: boolean = false
+  ) => {
     const {
       styles: { component: componentStyles = {} },
       components,
@@ -119,9 +88,6 @@ export default class SchemaVis extends Component {
     } = this.props;
 
     const schemaStyle = getStyle(schema, prefix, {});
-    const componentName = namespace && name
-      ? `${namespace}.${name}`
-      : name || namespace || schema.id;
     const component = getComponent(schema, prefix);
     const rest = omit(this.props, [
       'schema',
@@ -143,10 +109,10 @@ export default class SchemaVis extends Component {
       const componentAttributes = {
         styles: merge({}, componentStyles, componentPropStyles, schemaStyle),
         key: idx,
-        name: componentName,
+        name,
         schema,
         required,
-        ...this.renderSchemaValidators(schema, componentName),
+        renderSchema: this.renderSchema,
         ...componentProp,
         ...rest
       };
@@ -155,25 +121,25 @@ export default class SchemaVis extends Component {
         return React.cloneElement(
           ComponentVis,
           componentAttributes,
-          this.renderChildren(schema, componentName)
+          this.renderChildren(schema, name)
         );
       }
 
       return React.createElement(
         ComponentVis,
         componentAttributes,
-        this.renderChildren(schema, componentName)
+        this.renderChildren(schema, name)
       );
     } else if (!isEmpty(get(schema, 'properties', []))) {
       return (
         <Tag key={idx} {...rest}>
-          {this.renderChildren(schema, componentName)}
+          {this.renderChildren(schema, name)}
         </Tag>
       );
     }
 
     return undefined;
-  }
+  };
 
   render() {
     const { schema, namespace } = this.props;

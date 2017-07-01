@@ -144,6 +144,6 @@ export default class SchemaVis extends Component {
   render() {
     const { schema, namespace } = this.props;
 
-    return this.renderSchema(schema, 'schemaVis', namespace);
+    return this.renderSchema(schema, 'schemaVis', namespace) || <div />;
   }
 }

@@ -2,9 +2,9 @@
 
 exports[`Render Schema should render 1`] = `
 <div>
-  <div />
   <input
     name="foo"
+    renderSchema={[Function]}
     required={true}
     schema={
       Object {
@@ -23,6 +23,7 @@ exports[`Render Schema should render 1`] = `
   />
   <input
     name="foobar"
+    renderSchema={[Function]}
     required={true}
     schema={
       Object {
@@ -42,7 +43,8 @@ exports[`Render Schema should render 1`] = `
   />
   <input
     name="bar"
-    required={true}
+    renderSchema={[Function]}
+    required={false}
     schema={
       Object {
         "meta": Object {
@@ -59,8 +61,6 @@ exports[`Render Schema should render 1`] = `
     }
     styles={Object {}}
   />
-  <div />
-  <div />
 </div>
 `;
 
@@ -68,6 +68,7 @@ exports[`Render Schema should render single field schema 1`] = `
 <input
   name="bar"
   namespace="bar"
+  renderSchema={[Function]}
   required={false}
   schema={
     Object {
@@ -91,12 +92,10 @@ exports[`Render Schema should render without name and with namespace 1`] = `
 <div
   namespace="foo"
 >
-  <div
-    namespace="foo"
-  />
   <input
     name="foo.foo"
     namespace="foo"
+    renderSchema={[Function]}
     required={true}
     schema={
       Object {
@@ -116,6 +115,7 @@ exports[`Render Schema should render without name and with namespace 1`] = `
   <input
     name="foo.foobar"
     namespace="foo"
+    renderSchema={[Function]}
     required={true}
     schema={
       Object {
@@ -136,7 +136,8 @@ exports[`Render Schema should render without name and with namespace 1`] = `
   <input
     name="foo.bar"
     namespace="foo"
-    required={true}
+    renderSchema={[Function]}
+    required={false}
     schema={
       Object {
         "meta": Object {
@@ -153,12 +154,6 @@ exports[`Render Schema should render without name and with namespace 1`] = `
     }
     styles={Object {}}
   />
-  <div
-    namespace="foo"
-  />
-  <div
-    namespace="foo"
-  />
 </div>
 `;
 
@@ -166,9 +161,9 @@ exports[`Render Schema should render without properties 1`] = `<div />`;
 
 exports[`Render Schema should render without required fields 1`] = `
 <div>
-  <div />
   <input
     name="foo"
+    renderSchema={[Function]}
     required={false}
     schema={
       Object {
@@ -187,6 +182,7 @@ exports[`Render Schema should render without required fields 1`] = `
   />
   <input
     name="foobar"
+    renderSchema={[Function]}
     required={false}
     schema={
       Object {
@@ -206,7 +202,8 @@ exports[`Render Schema should render without required fields 1`] = `
   />
   <input
     name="bar"
-    required={true}
+    renderSchema={[Function]}
+    required={false}
     schema={
       Object {
         "meta": Object {
@@ -223,7 +220,5 @@ exports[`Render Schema should render without required fields 1`] = `
     }
     styles={Object {}}
   />
-  <div />
-  <div />
 </div>
 `;

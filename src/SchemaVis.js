@@ -9,7 +9,8 @@ import {
   hasOrdinal,
   getComponent,
   hasComponent,
-  getStyle
+  getStyle,
+  hasStyle
 } from './selectors';
 
 const LABEL_PROP = 'title';
@@ -51,6 +52,7 @@ export default class SchemaVis extends Component {
     namespace?: string,
     styles: SchemaVisStylesType,
     components: { [string]: React.Element<*> | string },
+    defaultComponents: { [string]: React.Element<*> | string },
     componentProps: { [string]: { styles: { [string]: any } } },
     tag: string
   };
@@ -84,7 +86,8 @@ export default class SchemaVis extends Component {
       components,
       componentProps,
       prefix,
-      tag: Tag
+      tag: Tag,
+      defaultComponents
     } = this.props;
 
     const schemaStyle = getStyle(schema, prefix, {});
@@ -98,8 +101,15 @@ export default class SchemaVis extends Component {
       'tag'
     ]);
 
-    if (hasComponent(schema, prefix) && has(components, component)) {
-      const ComponentVis = get(components, component);
+    if (
+      (hasComponent(schema, prefix) && has(components, component)) ||
+      has(defaultComponents, schema.type)
+    ) {
+      const ComponentVis = get(
+        components,
+        component,
+        get(defaultComponents, schema.type)
+      );
       const { styles: componentPropStyles = {}, ...componentProp } = get(
         componentProps,
         component,
@@ -113,23 +123,28 @@ export default class SchemaVis extends Component {
         schema,
         required,
         renderSchema: this.renderSchema,
+        renderProperties: this.renderChildren,
+        isDisabled: (schema: SchemaType) => isDisabled(schema, prefix),
+        getOrdinal: (schema: SchemaType, defaultValue: number) =>
+          getOrdinal(schema, prefix, defaultValue),
+        hasOrdinal: (schema: SchemaType) => hasOrdinal(schema, prefix),
+        getComponent: (schema: SchemaType, defaultValue: any) =>
+          getComponent(schema, prefix, defaultValue),
+        hasComponent: (schema: SchemaType) => hasComponent(schema, prefix),
+        getStyle: (schema: SchemaType, defaultValue: { [string]: any }) =>
+          getStyle(schema, prefix, defaultValue),
+        hasStyle: (schema: SchemaType) => hasStyle(schema, prefix),
+        getMeta: (schema: SchemaType) => get(schema, prefix),
+        hasMeta: (schema: SchemaType) => has(schema, prefix),
         ...componentProp,
         ...rest
       };
 
       if (React.isValidElement(ComponentVis)) {
-        return React.cloneElement(
-          ComponentVis,
-          componentAttributes,
-          this.renderChildren(schema, name)
-        );
+        return React.cloneElement(ComponentVis, componentAttributes);
       }
 
-      return React.createElement(
-        ComponentVis,
-        componentAttributes,
-        this.renderChildren(schema, name)
-      );
+      return React.createElement(ComponentVis, componentAttributes);
     } else if (!isEmpty(get(schema, 'properties', []))) {
       return (
         <Tag key={idx} {...rest}>

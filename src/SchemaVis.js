@@ -9,8 +9,7 @@ import {
   hasOrdinal,
   getComponent,
   hasComponent,
-  getStyle,
-  hasStyle
+  getStyle
 } from './selectors';
 
 const LABEL_PROP = 'title';
@@ -43,11 +42,13 @@ export default class SchemaVis extends Component {
   static defaultProps = {
     styles: {},
     prefix: DEFAULT_PREFIX,
-    tag: 'div'
+    tag: 'div',
+    id: 'schemaVis'
   };
 
   props: {
     schema: SchemaType,
+    id: string,
     prefix: string,
     namespace?: string,
     styles: SchemaVisStylesType,
@@ -96,8 +97,10 @@ export default class SchemaVis extends Component {
       'schema',
       'prefix',
       'styles',
+      'namespace',
       'components',
       'componentProps',
+      'defaultComponents',
       'tag'
     ]);
 
@@ -120,22 +123,14 @@ export default class SchemaVis extends Component {
         styles: merge({}, componentStyles, componentPropStyles, schemaStyle),
         key: idx,
         name,
-        schema,
         required,
-        renderSchema: this.renderSchema,
-        renderProperties: this.renderChildren,
-        isDisabled: (schema: SchemaType) => isDisabled(schema, prefix),
-        getOrdinal: (schema: SchemaType, defaultValue: number) =>
-          getOrdinal(schema, prefix, defaultValue),
-        hasOrdinal: (schema: SchemaType) => hasOrdinal(schema, prefix),
-        getComponent: (schema: SchemaType, defaultValue: any) =>
-          getComponent(schema, prefix, defaultValue),
-        hasComponent: (schema: SchemaType) => hasComponent(schema, prefix),
-        getStyle: (schema: SchemaType, defaultValue: { [string]: any }) =>
-          getStyle(schema, prefix, defaultValue),
-        hasStyle: (schema: SchemaType) => hasStyle(schema, prefix),
-        getMeta: (schema: SchemaType) => get(schema, prefix),
-        hasMeta: (schema: SchemaType) => has(schema, prefix),
+        schemaVis: {
+          prefix,
+          schema,
+          components,
+          componentProps,
+          defaultComponents
+        },
         ...componentProp,
         ...rest
       };
@@ -146,10 +141,10 @@ export default class SchemaVis extends Component {
 
       return React.createElement(ComponentVis, componentAttributes);
     } else if (!isEmpty(get(schema, 'properties', []))) {
-      return (
-        <Tag key={idx} {...rest}>
-          {this.renderChildren(schema, name)}
-        </Tag>
+      return React.createElement(
+        Tag,
+        { key: idx, ...rest },
+        this.renderChildren(schema, name)
       );
     }
 
@@ -157,8 +152,8 @@ export default class SchemaVis extends Component {
   };
 
   render() {
-    const { schema, namespace } = this.props;
+    const { schema, namespace, id } = this.props;
 
-    return this.renderSchema(schema, 'schemaVis', namespace) || <div />;
+    return this.renderSchema(schema, id, namespace) || <div />;
   }
 }

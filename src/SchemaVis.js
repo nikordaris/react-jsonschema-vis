@@ -9,7 +9,8 @@ import {
   hasOrdinal,
   getComponent,
   hasComponent,
-  getStyle
+  getStyle,
+  hasStyle
 } from './selectors';
 
 const LABEL_PROP = 'title';
@@ -129,7 +130,16 @@ export default class SchemaVis extends Component {
           schema,
           components,
           componentProps,
-          defaultComponents
+          defaultComponents,
+          meta: {
+            isDisabled: (schema: any) => isDisabled(schema, prefix),
+            getOrdinal: (schema: any) => getOrdinal(schema, prefix),
+            hasOrdinal: (schema: any) => hasOrdinal(schema, prefix),
+            getComponent: (schema: any) => getOrdinal(schema, prefix),
+            hasComponent: (schema: any) => hasComponent(schema, prefix),
+            getStyle: (schema: any) => getStyle(schema, prefix),
+            hasStyle: (schema: any) => hasStyle(schema, prefix)
+          }
         },
         ...componentProp,
         ...rest

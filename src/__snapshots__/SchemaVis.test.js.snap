@@ -19,6 +19,15 @@ exports[`Render Schema should render 1`] = `
       />,
         },
         "defaultComponents": undefined,
+        "meta": Object {
+          "getComponent": [Function],
+          "getOrdinal": [Function],
+          "getStyle": [Function],
+          "hasComponent": [Function],
+          "hasOrdinal": [Function],
+          "hasStyle": [Function],
+          "isDisabled": [Function],
+        },
         "prefix": "meta.vis",
         "schema": Object {
           "meta": Object {
@@ -50,6 +59,15 @@ exports[`Render Schema should render 1`] = `
       />,
         },
         "defaultComponents": undefined,
+        "meta": Object {
+          "getComponent": [Function],
+          "getOrdinal": [Function],
+          "getStyle": [Function],
+          "hasComponent": [Function],
+          "hasOrdinal": [Function],
+          "hasStyle": [Function],
+          "isDisabled": [Function],
+        },
         "prefix": "meta.vis",
         "schema": Object {
           "description": "Foo is bar",
@@ -82,6 +100,15 @@ exports[`Render Schema should render 1`] = `
       />,
         },
         "defaultComponents": undefined,
+        "meta": Object {
+          "getComponent": [Function],
+          "getOrdinal": [Function],
+          "getStyle": [Function],
+          "hasComponent": [Function],
+          "hasOrdinal": [Function],
+          "hasStyle": [Function],
+          "isDisabled": [Function],
+        },
         "prefix": "meta.vis",
         "schema": Object {
           "meta": Object {
@@ -118,6 +145,15 @@ exports[`Render Schema should render single field schema 1`] = `
     />,
       },
       "defaultComponents": undefined,
+      "meta": Object {
+        "getComponent": [Function],
+        "getOrdinal": [Function],
+        "getStyle": [Function],
+        "hasComponent": [Function],
+        "hasOrdinal": [Function],
+        "hasStyle": [Function],
+        "isDisabled": [Function],
+      },
       "prefix": "meta.vis",
       "schema": Object {
         "meta": Object {
@@ -156,6 +192,15 @@ exports[`Render Schema should render without name and with namespace 1`] = `
       />,
         },
         "defaultComponents": undefined,
+        "meta": Object {
+          "getComponent": [Function],
+          "getOrdinal": [Function],
+          "getStyle": [Function],
+          "hasComponent": [Function],
+          "hasOrdinal": [Function],
+          "hasStyle": [Function],
+          "isDisabled": [Function],
+        },
         "prefix": "meta.vis",
         "schema": Object {
           "meta": Object {
@@ -187,6 +232,15 @@ exports[`Render Schema should render without name and with namespace 1`] = `
       />,
         },
         "defaultComponents": undefined,
+        "meta": Object {
+          "getComponent": [Function],
+          "getOrdinal": [Function],
+          "getStyle": [Function],
+          "hasComponent": [Function],
+          "hasOrdinal": [Function],
+          "hasStyle": [Function],
+          "isDisabled": [Function],
+        },
         "prefix": "meta.vis",
         "schema": Object {
           "description": "Foo is bar",
@@ -219,6 +273,15 @@ exports[`Render Schema should render without name and with namespace 1`] = `
       />,
         },
         "defaultComponents": undefined,
+        "meta": Object {
+          "getComponent": [Function],
+          "getOrdinal": [Function],
+          "getStyle": [Function],
+          "hasComponent": [Function],
+          "hasOrdinal": [Function],
+          "hasStyle": [Function],
+          "isDisabled": [Function],
+        },
         "prefix": "meta.vis",
         "schema": Object {
           "meta": Object {
@@ -260,6 +323,15 @@ exports[`Render Schema should render without required fields 1`] = `
       />,
         },
         "defaultComponents": undefined,
+        "meta": Object {
+          "getComponent": [Function],
+          "getOrdinal": [Function],
+          "getStyle": [Function],
+          "hasComponent": [Function],
+          "hasOrdinal": [Function],
+          "hasStyle": [Function],
+          "isDisabled": [Function],
+        },
         "prefix": "meta.vis",
         "schema": Object {
           "meta": Object {
@@ -291,6 +363,15 @@ exports[`Render Schema should render without required fields 1`] = `
       />,
         },
         "defaultComponents": undefined,
+        "meta": Object {
+          "getComponent": [Function],
+          "getOrdinal": [Function],
+          "getStyle": [Function],
+          "hasComponent": [Function],
+          "hasOrdinal": [Function],
+          "hasStyle": [Function],
+          "isDisabled": [Function],
+        },
         "prefix": "meta.vis",
         "schema": Object {
           "description": "Foo is bar",
@@ -323,6 +404,15 @@ exports[`Render Schema should render without required fields 1`] = `
       />,
         },
         "defaultComponents": undefined,
+        "meta": Object {
+          "getComponent": [Function],
+          "getOrdinal": [Function],
+          "getStyle": [Function],
+          "hasComponent": [Function],
+          "hasOrdinal": [Function],
+          "hasStyle": [Function],
+          "isDisabled": [Function],
+        },
         "prefix": "meta.vis",
         "schema": Object {
           "meta": Object {

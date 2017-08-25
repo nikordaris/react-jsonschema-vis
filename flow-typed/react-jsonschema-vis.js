@@ -3,9 +3,10 @@
 declare type SchemaType = {
   id?: string,
   $schema?: string,
+  $ref?: string,
   title?: string,
   description?: string,
-  "const"?: string,
+  'const'?: string,
   multipleOf?: number,
   maximum?: number,
   exclusiveMaximum?: boolean,
@@ -35,7 +36,7 @@ declare type SchemaType = {
   dependencies?: {
     [name: string]: SchemaType | string[]
   },
-  "enum"?: any[],
+  'enum'?: any[],
   type?: string | string[],
   allOf?: SchemaType[],
   anyOf?: SchemaType[],

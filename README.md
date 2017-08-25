@@ -1,8 +1,8 @@
 # React Jsonschema Visualization
 Renders widget components for each property of a jsonschema definition. Useful for forms and customized display of data.
 
-[![Travis](https://img.shields.io/travis/nikordaris/react-jsonschema-vis.svg?style=plastic)]()
-[![Codecov](https://img.shields.io/codecov/c/github/nikordaris/react-jsonschema-vis.svg?style=plastic)]()
+[![Build Status](https://travis-ci.org/nikordaris/react-jsonschema-vis.svg?branch=master)](https://travis-ci.org/nikordaris/react-jsonschema-vis)
+[![codecov](https://codecov.io/gh/nikordaris/react-jsonschema-vis/branch/master/graph/badge.svg)](https://codecov.io/gh/nikordaris/react-jsonschema-vis)
 
 ## Install
 

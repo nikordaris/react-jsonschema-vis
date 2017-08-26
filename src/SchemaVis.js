@@ -72,17 +72,33 @@ export default class SchemaVis extends Component {
     });
   }
 
+  setSchemaDefMetadata(schema: SchemaType, metadata: any) {
+    const { prefix } = this.props;
+    if (isEmpty(prefix)) {
+      return merge({}, schema, metadata);
+    }
+
+    return set(schema, prefix, metadata);
+  }
+
   getSchema(schema: SchemaType) {
     const { definitions } = this.state;
     const { prefix } = this.props;
     const ref = schema['$ref'];
     if (ref) {
+      // expects #/definitions/[PATH/TO/DEF]
       const refDot = ref.slice(14).replace('/', '.');
       const refSchema = get(definitions, refDot);
-      return set(
-        refSchema,
-        prefix,
-        merge({}, getPrefix(schema, prefix), getPrefix(refSchema, prefix))
+      return (
+        refSchema &&
+        this.setSchemaDefMetadata(
+          refSchema,
+          merge(
+            {},
+            getPrefix(omit(schema, ['$ref']), prefix),
+            getPrefix(refSchema, prefix)
+          )
+        )
       );
     }
     return schema;
@@ -120,9 +136,9 @@ export default class SchemaVis extends Component {
       tag: Tag,
       defaultComponents
     } = this.props;
-
-    const schemaStyle = getStyle(schema, prefix, {});
-    const component = getComponent(schema, prefix);
+    const schemaDef = this.getSchema(schema);
+    const schemaStyle = getStyle(schemaDef, prefix, {});
+    const component = getComponent(schemaDef, prefix);
     const rest = omit(this.props, [
       'schema',
       'prefix',
@@ -137,7 +153,7 @@ export default class SchemaVis extends Component {
     const ComponentVis = get(
       components,
       component,
-      getDefaultComponent(defaultComponents, schema)
+      getDefaultComponent(defaultComponents, schemaDef)
     );
 
     if (ComponentVis) {
@@ -154,7 +170,7 @@ export default class SchemaVis extends Component {
         required,
         schemaVis: {
           prefix,
-          schema,
+          schema: schemaDef,
           components,
           componentProps,
           defaultComponents
@@ -168,11 +184,11 @@ export default class SchemaVis extends Component {
       }
 
       return React.createElement(ComponentVis, componentAttributes);
-    } else if (!isEmpty(get(schema, 'properties', {}))) {
+    } else if (!isEmpty(get(schemaDef, 'properties', {}))) {
       return React.createElement(
         Tag,
         { key: idx, ...rest },
-        this.renderChildren(schema, name)
+        this.renderChildren(schemaDef, name)
       );
     }
 

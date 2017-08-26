@@ -8,82 +8,61 @@ exports[`Render Schema should render 1`] = `
     id="schemaVis"
     name="foo"
     required={true}
-    schemaVis={
-      Object {
-        "componentProps": undefined,
-        "components": Object {
-          "EmailInputField": [Function],
-          "InputField": "input",
-          "NumberInputField": <input
-            type="number"
-      />,
-        },
-        "defaultComponents": undefined,
-        "prefix": "meta.vis",
-        "schema": Object {
-          "meta": Object {
-            "vis": Object {
-              "component": "NumberInputField",
-              "editable": true,
-            },
-          },
-          "title": "Foo",
-          "type": "number",
-        },
-      }
-    }
-    styles={Object {}}
     type="number"
   />
   <input
     id="schemaVis"
     name="foobar"
     required={true}
-    schemaVis={
-      Object {
-        "componentProps": undefined,
-        "components": Object {
-          "EmailInputField": [Function],
-          "InputField": "input",
-          "NumberInputField": <input
-            type="number"
-      />,
-        },
-        "defaultComponents": undefined,
-        "prefix": "meta.vis",
-        "schema": Object {
-          "description": "Foo is bar",
-          "meta": Object {
-            "vis": Object {
-              "component": "EmailInputField",
-              "editable": true,
-            },
-          },
-          "title": "Foobar",
-          "type": "string",
-        },
-      }
-    }
-    styles={Object {}}
     type="email"
+  />
+  <input
+    id="schemaVis"
+    name="foo1"
+    required={false}
+    type="text"
   />
   <input
     id="schemaVis"
     name="bar"
     required={false}
-    schemaVis={
-      Object {
-        "componentProps": undefined,
-        "components": Object {
-          "EmailInputField": [Function],
-          "InputField": "input",
-          "NumberInputField": <input
-            type="number"
-      />,
+    type="text"
+  />
+</div>
+`;
+
+exports[`Render Schema should render props update 1`] = `
+<SchemaVis
+  components={
+    Object {
+      "EmailInputField": <InputField
+        type="email"
+    />,
+      "InputField": [Function],
+      "NumberInputField": <InputField
+        type="number"
+    />,
+    }
+  }
+  id="schemaVis"
+  prefix=""
+  schema={
+    Object {
+      "definitions": Object {
+        "foo1": Object {
+          "meta": Object {
+            "vis": Object {
+              "component": "InputField",
+              "disabled": true,
+              "ordinal": 0,
+            },
+          },
+          "title": "Foo1",
+          "type": "string",
         },
-        "defaultComponents": undefined,
-        "prefix": "meta.vis",
-        "schema": Object {
+      },
+      "properties": Object {
+        "bar": Object {
           "meta": Object {
             "vis": Object {
               "component": "InputField",
@@ -95,11 +74,174 @@ exports[`Render Schema should render 1`] = `
           "title": "Bar",
           "type": "string",
         },
-      }
+        "blah": Object {
+          "meta": Object {
+            "vis": Object {
+              "editable": true,
+              "ordinal": 1,
+            },
+          },
+          "title": "Blah",
+          "type": "string",
+        },
+        "blah2": Object {
+          "title": "Blah2",
+          "type": "string",
+        },
+        "foo": Object {
+          "meta": Object {
+            "vis": Object {
+              "component": "NumberInputField",
+              "editable": true,
+            },
+          },
+          "title": "Foo",
+          "type": "number",
+        },
+        "foo1": Object {
+          "$ref": "#/definitions/foo1",
+        },
+        "foo2": Object {
+          "$ref": "#/definitions/foo1",
+          "meta": Object {
+            "vis2": Object {
+              "component": "InputField",
+            },
+          },
+        },
+        "foobar": Object {
+          "description": "Foo is bar",
+          "meta": Object {
+            "vis": Object {
+              "component": "EmailInputField",
+              "editable": true,
+            },
+          },
+          "title": "Foobar",
+          "type": "string",
+        },
+        "foobar2": Object {
+          "description": "Foo is bar",
+          "meta": Object {
+            "vis": Object {
+              "editable": true,
+              "ordinal": 3,
+            },
+          },
+          "title": "Foobar2",
+          "type": "string",
+        },
+      },
+      "required": Array [
+        "foo",
+        "foobar",
+      ],
+      "title": "Test",
+      "type": "object",
     }
-    styles={Object {}}
+  }
+  styles={Object {}}
+  tag="div"
+>
+  <div
+    id="schemaVis"
   />
-</div>
+</SchemaVis>
+`;
+
+exports[`Render Schema should render props update 2`] = `
+<SchemaVis
+  components={
+    Object {
+      "EmailInputField": <InputField
+        type="email"
+    />,
+      "InputField": [Function],
+      "NumberInputField": <InputField
+        type="number"
+    />,
+    }
+  }
+  id="schemaVis"
+  prefix=""
+  schema={
+    Object {
+      "definitions": undefined,
+      "properties": Object {
+        "bar": Object {
+          "meta": Object {
+            "vis": Object {
+              "component": "InputField",
+              "editable": true,
+              "ordinal": 1,
+            },
+          },
+          "required": true,
+          "title": "Bar",
+          "type": "string",
+        },
+        "blah": Object {
+          "meta": Object {
+            "vis": Object {
+              "editable": true,
+              "ordinal": 1,
+            },
+          },
+          "title": "Blah",
+          "type": "string",
+        },
+        "blah2": Object {
+          "title": "Blah2",
+          "type": "string",
+        },
+        "foo": Object {
+          "meta": Object {
+            "vis": Object {
+              "component": "NumberInputField",
+              "editable": true,
+            },
+          },
+          "title": "Foo",
+          "type": "number",
+        },
+        "foobar": Object {
+          "description": "Foo is bar",
+          "meta": Object {
+            "vis": Object {
+              "component": "EmailInputField",
+              "editable": true,
+            },
+          },
+          "title": "Foobar",
+          "type": "string",
+        },
+        "foobar2": Object {
+          "description": "Foo is bar",
+          "meta": Object {
+            "vis": Object {
+              "editable": true,
+              "ordinal": 3,
+            },
+          },
+          "title": "Foobar2",
+          "type": "string",
+        },
+      },
+      "required": Array [
+        "foo",
+        "foobar",
+      ],
+      "title": "Test",
+      "type": "object",
+    }
+  }
+  styles={Object {}}
+  tag="div"
+>
+  <div
+    id="schemaVis"
+  />
+</SchemaVis>
 `;
 
 exports[`Render Schema should render single field schema 1`] = `
@@ -107,32 +249,6 @@ exports[`Render Schema should render single field schema 1`] = `
   id="schemaVis"
   name="bar"
   required={false}
-  schemaVis={
-    Object {
-      "componentProps": undefined,
-      "components": Object {
-        "EmailInputField": [Function],
-        "InputField": "input",
-        "NumberInputField": <input
-          type="number"
-    />,
-      },
-      "defaultComponents": undefined,
-      "prefix": "meta.vis",
-      "schema": Object {
-        "meta": Object {
-          "vis": Object {
-            "component": "NumberInputField",
-            "editable": true,
-            "ordinal": 0,
-          },
-        },
-        "title": "Foo",
-        "type": "number",
-      },
-    }
-  }
-  styles={Object {}}
   type="number"
 />
 `;
@@ -145,96 +261,25 @@ exports[`Render Schema should render without name and with namespace 1`] = `
     id="schemaVis"
     name="foo.foo"
     required={true}
-    schemaVis={
-      Object {
-        "componentProps": undefined,
-        "components": Object {
-          "EmailInputField": [Function],
-          "InputField": "input",
-          "NumberInputField": <input
-            type="number"
-      />,
-        },
-        "defaultComponents": undefined,
-        "prefix": "meta.vis",
-        "schema": Object {
-          "meta": Object {
-            "vis": Object {
-              "component": "NumberInputField",
-              "editable": true,
-            },
-          },
-          "title": "Foo",
-          "type": "number",
-        },
-      }
-    }
-    styles={Object {}}
     type="number"
   />
   <input
     id="schemaVis"
     name="foo.foobar"
     required={true}
-    schemaVis={
-      Object {
-        "componentProps": undefined,
-        "components": Object {
-          "EmailInputField": [Function],
-          "InputField": "input",
-          "NumberInputField": <input
-            type="number"
-      />,
-        },
-        "defaultComponents": undefined,
-        "prefix": "meta.vis",
-        "schema": Object {
-          "description": "Foo is bar",
-          "meta": Object {
-            "vis": Object {
-              "component": "EmailInputField",
-              "editable": true,
-            },
-          },
-          "title": "Foobar",
-          "type": "string",
-        },
-      }
-    }
-    styles={Object {}}
     type="email"
+  />
+  <input
+    id="schemaVis"
+    name="foo.foo1"
+    required={false}
+    type="text"
   />
   <input
     id="schemaVis"
     name="foo.bar"
     required={false}
-    schemaVis={
-      Object {
-        "componentProps": undefined,
-        "components": Object {
-          "EmailInputField": [Function],
-          "InputField": "input",
-          "NumberInputField": <input
-            type="number"
-      />,
-        },
-        "defaultComponents": undefined,
-        "prefix": "meta.vis",
-        "schema": Object {
-          "meta": Object {
-            "vis": Object {
-              "component": "InputField",
-              "editable": true,
-              "ordinal": 1,
-            },
-          },
-          "required": true,
-          "title": "Bar",
-          "type": "string",
-        },
-      }
-    }
-    styles={Object {}}
+    type="text"
   />
 </div>
 `;
@@ -249,96 +294,25 @@ exports[`Render Schema should render without required fields 1`] = `
     id="schemaVis"
     name="foo"
     required={false}
-    schemaVis={
-      Object {
-        "componentProps": undefined,
-        "components": Object {
-          "EmailInputField": [Function],
-          "InputField": "input",
-          "NumberInputField": <input
-            type="number"
-      />,
-        },
-        "defaultComponents": undefined,
-        "prefix": "meta.vis",
-        "schema": Object {
-          "meta": Object {
-            "vis": Object {
-              "component": "NumberInputField",
-              "editable": true,
-            },
-          },
-          "title": "Foo",
-          "type": "number",
-        },
-      }
-    }
-    styles={Object {}}
     type="number"
   />
   <input
     id="schemaVis"
     name="foobar"
     required={false}
-    schemaVis={
-      Object {
-        "componentProps": undefined,
-        "components": Object {
-          "EmailInputField": [Function],
-          "InputField": "input",
-          "NumberInputField": <input
-            type="number"
-      />,
-        },
-        "defaultComponents": undefined,
-        "prefix": "meta.vis",
-        "schema": Object {
-          "description": "Foo is bar",
-          "meta": Object {
-            "vis": Object {
-              "component": "EmailInputField",
-              "editable": true,
-            },
-          },
-          "title": "Foobar",
-          "type": "string",
-        },
-      }
-    }
-    styles={Object {}}
     type="email"
+  />
+  <input
+    id="schemaVis"
+    name="foo1"
+    required={false}
+    type="text"
   />
   <input
     id="schemaVis"
     name="bar"
     required={false}
-    schemaVis={
-      Object {
-        "componentProps": undefined,
-        "components": Object {
-          "EmailInputField": [Function],
-          "InputField": "input",
-          "NumberInputField": <input
-            type="number"
-      />,
-        },
-        "defaultComponents": undefined,
-        "prefix": "meta.vis",
-        "schema": Object {
-          "meta": Object {
-            "vis": Object {
-              "component": "InputField",
-              "editable": true,
-              "ordinal": 1,
-            },
-          },
-          "required": true,
-          "title": "Bar",
-          "type": "string",
-        },
-      }
-    }
-    styles={Object {}}
+    type="text"
   />
 </div>
 `;

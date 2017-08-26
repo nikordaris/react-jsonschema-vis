@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import renderer from 'react-test-renderer';
+import { mount } from 'enzyme';
+import toJson from 'enzyme-to-json';
+import { omit } from 'lodash';
 
 import SchemaVis from './index.js';
 
@@ -7,6 +10,19 @@ const schema = {
   title: 'Test',
   type: 'object',
   required: ['foo', 'foobar'],
+  definitions: {
+    foo1: {
+      title: 'Foo1',
+      type: 'string',
+      meta: {
+        vis: {
+          ordinal: 0,
+          disabled: true,
+          component: 'InputField'
+        }
+      }
+    }
+  },
   properties: {
     foo: {
       title: 'Foo',
@@ -17,6 +33,9 @@ const schema = {
           component: 'NumberInputField'
         }
       }
+    },
+    foo1: {
+      $ref: '#/definitions/foo1'
     },
     bar: {
       title: 'Bar',
@@ -69,16 +88,21 @@ const schema = {
   }
 };
 
-class EmailInputField extends Component {
+function createInput(options) {
+  return <InputField {...options} />;
+}
+
+class InputField extends Component {
   render() {
-    return <input type="email" {...this.props} />;
+    const { styles, schemaVis, ...rest } = this.props;
+    return <input type="text" {...rest} />;
   }
 }
 
 const components = {
-  EmailInputField,
-  NumberInputField: <input type="number" />,
-  InputField: 'input'
+  EmailInputField: createInput({ type: 'email' }),
+  NumberInputField: createInput({ type: 'number' }),
+  InputField
 };
 
 describe('Render Schema', () => {
@@ -87,6 +111,36 @@ describe('Render Schema', () => {
       .create(<SchemaVis schema={schema} components={components} />)
       .toJSON();
     expect(tree).toMatchSnapshot();
+  });
+
+  it('should render props update', () => {
+    const wrapper = mount(
+      <SchemaVis schema={schema} components={components} />
+    );
+    wrapper.setProps({
+      schema: {
+        ...schema,
+        properties: {
+          ...schema.properties,
+          foo2: {
+            $ref: '#/definitions/foo1',
+            meta: { vis2: { component: 'InputField' } }
+          }
+        }
+      },
+      prefix: '',
+      components
+    });
+    expect(toJson(wrapper)).toMatchSnapshot();
+    wrapper.setProps({
+      schema: {
+        ...schema,
+        definitions: undefined,
+        properties: omit(schema.properties, ['foo1'])
+      },
+      components
+    });
+    expect(toJson(wrapper)).toMatchSnapshot();
   });
 
   it('should render without required fields', () => {

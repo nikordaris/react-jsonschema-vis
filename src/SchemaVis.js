@@ -39,7 +39,7 @@ export default class SchemaVis extends Component {
 
   componentWillMount() {
     const {
-      schema: { definitions: schemaDefinitions },
+      schema: { definitions: schemaDefinitions } = {},
       definitions: propDefinitions
     } = this.props;
     this.setDefinitions(schemaDefinitions, propDefinitions);
@@ -48,11 +48,11 @@ export default class SchemaVis extends Component {
   componentWillReceiveProps(nextProps: any) {
     const {
       definitions: nextPropDefinitions,
-      schema: { definitions: nextSchemaDefinitions }
+      schema: { definitions: nextSchemaDefinitions } = {}
     } = nextProps;
     const {
       definitions: propDefinitions,
-      schema: { definitions: schemaDefinitions }
+      schema: { definitions: schemaDefinitions } = {}
     } = this.props;
     if (
       !isEqual(nextPropDefinitions, propDefinitions) ||
@@ -63,8 +63,8 @@ export default class SchemaVis extends Component {
   }
 
   setDefinitions(
-    schemaDefinitions: { [string]: SchemaType },
-    propDefinitions: { [string]: SchemaType }
+    schemaDefinitions: { [string]: SchemaType } = {},
+    propDefinitions: { [string]: SchemaType } = {}
   ) {
     this.setState({
       ...this.state,

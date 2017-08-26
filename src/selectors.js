@@ -1,25 +1,27 @@
 // @flow
-import { get, has } from 'lodash';
+import { get, has } from "lodash";
 
-export const DEFAULT_PREFIX = 'meta.vis';
+export const DEFAULT_PREFIX = "meta.vis";
 
-const _getPrefix = (schema: SchemaType, prefix: string = DEFAULT_PREFIX) =>
-  get(schema, prefix, schema);
+export const getPrefix = (
+  schema: SchemaType,
+  prefix: string = DEFAULT_PREFIX
+) => get(schema, prefix, schema);
 
 export function getOrdinal(
   schema: SchemaType,
   prefix: string,
   defaultValue?: any
 ) {
-  return get(_getPrefix(schema, prefix), 'ordinal', defaultValue);
+  return get(getPrefix(schema, prefix), "ordinal", defaultValue);
 }
 
 export function hasOrdinal(schema: SchemaType, prefix: string) {
-  return has(_getPrefix(schema, prefix), 'ordinal');
+  return has(getPrefix(schema, prefix), "ordinal");
 }
 
 export function isDisabled(schema: SchemaType, prefix: string) {
-  return get(_getPrefix(schema, prefix), 'disable', false);
+  return get(getPrefix(schema, prefix), "disable", false);
 }
 
 export function getComponent(
@@ -27,11 +29,11 @@ export function getComponent(
   prefix: string,
   defaultValue?: any
 ) {
-  return get(_getPrefix(schema, prefix), 'component', defaultValue);
+  return get(getPrefix(schema, prefix), "component", defaultValue);
 }
 
 export function hasComponent(schema: SchemaType, prefix: string) {
-  return has(_getPrefix(schema, prefix), 'component');
+  return has(getPrefix(schema, prefix), "component");
 }
 
 export function getStyle(
@@ -39,9 +41,9 @@ export function getStyle(
   prefix: string,
   defaultValue?: { [string]: any }
 ) {
-  return get(_getPrefix(schema, prefix), 'style', defaultValue);
+  return get(getPrefix(schema, prefix), "style", defaultValue);
 }
 
 export function hasStyle(schema: SchemaType, prefix: string) {
-  return has(_getPrefix(schema, prefix), 'style');
+  return has(getPrefix(schema, prefix), "style");
 }

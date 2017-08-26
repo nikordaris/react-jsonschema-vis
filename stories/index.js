@@ -8,7 +8,13 @@ import schema from './schema.json';
 function createInputField({ type, ...config }) {
   class CreatedInputField extends Component {
     render() {
-      const { name, schema, styles, children, ...rest } = this.props;
+      const {
+        name,
+        schemaVis: { schema },
+        styles,
+        children,
+        ...rest
+      } = this.props;
       let Tag = 'input';
       if (type === 'textarea') {
         Tag = 'textarea';
@@ -57,7 +63,14 @@ const data = {
 
 class VisField extends Component {
   render() {
-    const { name, data, schema, styles, children, ...rest } = this.props;
+    const {
+      name,
+      data,
+      schemaVis: { schema },
+      styles,
+      children,
+      ...rest
+    } = this.props;
     return (
       <div>
         <h4>{schema.title}</h4>
@@ -101,8 +114,7 @@ class EmailField extends Component {
     const { name, data } = this.props;
     return (
       <VisField {...this.props}>
-        <a href={`mailto:${data[name]}`}
-        >
+        <a href={`mailto:${data[name]}`}>
           {data[name]}
         </a>
       </VisField>
@@ -118,7 +130,7 @@ const visComponents = {
 
 storiesOf('React Jsonschema Vis', module)
   .add('simple form', () => (
-    <form onSubmit={action('form submit')}>
+    <form onSubmit={() => action('form submit')()}>
       <SchemaVis prefix="meta.form" schema={schema} components={inputFields} />
       <button color="primary" type="submit">Submit</button>
     </form>

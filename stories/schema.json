@@ -5,6 +5,14 @@
     "email",
     "password"
   ],
+  "definitions": {
+    "email": {
+      "id": "Email",
+      "title": "$ref Email",
+      "type": "string",
+      "format": "email"
+    }
+  },
   "properties": {
     "fullName": {
       "id": "FullName",
@@ -22,10 +30,7 @@
       }
     },
     "email": {
-      "id": "Email",
-      "title": "Email",
-      "type": "string",
-      "format": "email",
+      "$ref": "#/definitions/email",
       "meta": {
         "form": {
           "ordinal": 110,

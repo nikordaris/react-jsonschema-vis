@@ -84,7 +84,7 @@ export default class SchemaVis extends Component {
   getSchema(schema: SchemaType) {
     const { definitions } = this.state;
     const { prefix } = this.props;
-    const ref = schema['$ref'];
+    const ref = get(schema, '$ref');
     if (ref) {
       // expects #/definitions/[PATH/TO/DEF]
       const refDot = ref.slice(14).replace('/', '.');

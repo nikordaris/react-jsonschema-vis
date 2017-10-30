@@ -146,6 +146,7 @@ export default class SchemaVis extends Component {
       'namespace',
       'components',
       'componentProps',
+      'definitions',
       'defaultComponents',
       'tag'
     ]);
@@ -173,7 +174,8 @@ export default class SchemaVis extends Component {
           schema: schemaDef,
           components,
           componentProps,
-          defaultComponents
+          defaultComponents,
+          definitions: this.state.definitions
         },
         ...componentProp,
         ...rest
